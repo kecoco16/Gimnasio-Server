@@ -1,0 +1,23 @@
+{
+  "name": "Gimnasio-Server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kecoco16/Gimnasio-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kecoco16/Gimnasio-Server/issues"
+  },
+  "homepage": "https://github.com/kecoco16/Gimnasio-Server#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
