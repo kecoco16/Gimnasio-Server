@@ -1,10 +1,10 @@
 import express from 'express'
-import mainRoute from './routes/main'
+import main from './routes/main'
 
 const app = express()
 const router = express.Router()
 
-mainRoute(router)
+main(router)
 
 app.use('/', router)
 
