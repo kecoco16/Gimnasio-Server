@@ -12,6 +12,30 @@ const addClientSchema = Joi.object().keys({
   pago: Joi.date().required()
 })
 
+const idSchema = Joi.object().keys({
+  id: Joi.number().required()
+})
+
+const updateClientSchema = Joi.object().keys({
+  nombre: Joi.string(),
+  telefono: Joi.string().length(8),
+  mensualidad: Joi.string(),
+  correo: Joi.string().email(),
+  imagen: Joi.string()
+})
+
 export const addClientValidate = client => (
   Joi.validate(client, addClientSchema)
+)
+
+export const getClientValidate = clientId => (
+  Joi.validate(clientId, idSchema)
+)
+
+export const deleteClientValidate = clientId => (
+  Joi.validate(clientId, idSchema)
+)
+
+export const updateClientValidate = client => (
+  Joi.validate(client, updateClientSchema)
 )
