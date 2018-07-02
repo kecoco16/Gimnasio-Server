@@ -1,6 +1,7 @@
 import {
   addClientValidate,
   getClientValidate,
+  searchClientValidate,
   deleteClientValidate,
   updateClientValidate
 } from '../validators/client'
@@ -15,6 +16,12 @@ export const addClient = router => {
   })
 }
 
+export const getClients = router => {
+  router.get('/api/getClients', (req, res) => {
+    res.send('//TODO get clients info')
+  })
+}
+
 export const getClient = router => {
   router.get('/api/getClient/:id', (req, res) => {
     const { error } = getClientValidate(req.params)
@@ -22,6 +29,28 @@ export const getClient = router => {
       return res.status(400).send(error.details[0].message)
     }
     res.send('//TODO get client info')
+  })
+}
+
+export const searchClient = router => {
+  router.get('/api/searchClient/:name', (req, res) => {
+    const { error } = searchClientValidate(req.params)
+    if (error) {
+      return res.status(400).send(error.details[0].message)
+    }
+    res.send('//TODO search client info by name')
+  })
+}
+
+export const getLateClients = router => {
+  router.get('/api/getLateClients', (req, res) => {
+    res.send('//TODO get late to pay clients info')
+  })
+}
+
+export const getTodayClients = router => {
+  router.get('/api/getTodayClients', (req, res) => {
+    res.send('//TODO get today pay clients info')
   })
 }
 

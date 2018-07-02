@@ -7,9 +7,7 @@
     "start": "nodemon src/index.js --exec babel-node --presets babel-preset-es2015",
     "lint": "standard --fix"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "pre-commit": "lint",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kecoco16/Gimnasio-Server.git"

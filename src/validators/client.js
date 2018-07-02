@@ -16,6 +16,10 @@ const idSchema = Joi.object().keys({
   id: Joi.number().required()
 })
 
+const nameSchema = Joi.object().keys({
+  name: Joi.string().required()
+})
+
 const updateClientSchema = Joi.object().keys({
   nombre: Joi.string(),
   telefono: Joi.string().length(8),
@@ -30,6 +34,10 @@ export const addClientValidate = client => (
 
 export const getClientValidate = clientId => (
   Joi.validate(clientId, idSchema)
+)
+
+export const searchClientValidate = clientName => (
+  Joi.validate(clientName, nameSchema)
 )
 
 export const deleteClientValidate = clientId => (
