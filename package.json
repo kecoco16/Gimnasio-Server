@@ -8,6 +8,7 @@
     "lint": "standard --fix",
     "setup": "DEBUG=db:* babel-node src/db/setup.js --presets babel-preset-es2015,stage-2"
   },
+  "pre-commit": "lint",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kecoco16/Gimnasio-Server.git"
@@ -36,6 +37,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "nodemon": "^1.17.5",
+    "pre-commit": "^1.2.2",
     "standard": "^11.0.1"
   },
   "standard": {
