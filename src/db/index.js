@@ -3,8 +3,21 @@ import setupClientModel from './models/client'
 import setupMembershipModel from './models/membership'
 import setupUserModel from './models/user'
 import setupPaymentModel from './models/payment'
+import defaults from 'defaults'
 
 const db = async config => {
+  config = defaults(config, {
+    dialect: 'sqlite',
+    pool: {
+      max: 10,
+      min: 0,
+      idle: 10000
+    },
+    query: {
+      raw: true
+    }
+  })
+
   const sequelize = setupDataBase(config)
   const clientModel = setupClientModel(config)
   const membershipModel = setupMembershipModel(config)
