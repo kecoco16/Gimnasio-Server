@@ -8,5 +8,5 @@ test.beforeEach(async () => {
 })
 
 test('make it pass', t => {
-  t.truthy(db.client, 'Client service should exist')
+  t.truthy(db.payment, 'Payment service should exist')
 })
