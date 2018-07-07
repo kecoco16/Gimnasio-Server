@@ -24,11 +24,13 @@ const db = async config => {
   const clientModel = setupClientModel(config)
   const membershipModel = setupMembershipModel(config)
   const paymentModel = setupPaymentModel(config)
-  setupUserModel(config)
+  const userModel = setupUserModel(config)
 
   membershipModel.hasMany(clientModel)
   clientModel.belongsTo(membershipModel)
+
   paymentModel.belongsTo(clientModel)
+  paymentModel.belongsTo(userModel)
 
   await sequelize.authenticate()
 

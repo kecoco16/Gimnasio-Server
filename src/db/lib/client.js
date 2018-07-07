@@ -17,11 +17,32 @@ const setupClient = clientModel => {
     return result.toJSON()
   }
 
+  const findAll = () => clientModel.findAll()
+
   const findById = id => clientModel.findById(id)
+
+  const findByIdNumber = idNumber => (
+    clientModel.findOne({
+      where: {
+        idNumber
+      }
+    })
+  )
+
+  const findByName = name => (
+    clientModel.findAll({
+      where: {
+        name
+      }
+    })
+  )
 
   return {
     createOrUpdate,
-    findById
+    findAll,
+    findById,
+    findByIdNumber,
+    findByName
   }
 }
 
