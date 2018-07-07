@@ -1,5 +1,6 @@
 import setupDataBase from './lib/db'
 import setupClientModel from './models/client'
+import setupClient from './lib/client'
 import setupMembershipModel from './models/membership'
 import setupUserModel from './models/user'
 import setupPaymentModel from './models/payment'
@@ -34,8 +35,8 @@ const db = async config => {
     await sequelize.sync({force: true})
   }
 
+  const client = setupClient(clientModel)
   const user = {}
-  const client = {}
   const membership = {}
   const payment = {}
 
@@ -47,4 +48,5 @@ const db = async config => {
   }
 }
 
-export default db
+// The syntax of CommonJS to export modules is required for the unit tests, specifically for use proxyquire.
+module.exports = db
