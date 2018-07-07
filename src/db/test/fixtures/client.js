@@ -23,5 +23,8 @@ export default {
   single: client,
   all: clients,
   byId: id => clients.filter(c => c.id === id).shift(),
-  byName: name => clients.filter(c => c.name === name).shift()
+  byIdNumber: idNumber => clients.filter(c => c.idNumber === idNumber).shift(),
+  byName: name => clients.filter(c => c.name === name).shift(),
+  today: date => clients.filter(c => c.payDay === date),
+  late: date => clients.filter(c => c.payDay > date)
 }

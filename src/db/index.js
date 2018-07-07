@@ -16,7 +16,8 @@ const db = async config => {
     },
     query: {
       raw: true
-    }
+    },
+    operatorsAliases: false
   })
 
   const sequelize = setupDataBase(config)
