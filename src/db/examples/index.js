@@ -1,3 +1,4 @@
+import moment from 'moment'
 const db = require('../')
 
 const run = async () => {
@@ -24,18 +25,26 @@ const run = async () => {
 
     const clientExample = {
       idNumber: 111111111,
-      name: 'Kevin Castillo Mora',
+      name: 'New Client',
       gender: 'M',
       phone: 88888888,
       email: 'test@mail.com',
       profileImageRoute: '../profile/name.png',
-      payDay: new Date(),
+      payDay: moment().add(1, 'month').calendar(),
       membershipId: 1
     }
 
-    const createOrUpdateClient = await client.createOrUpdate(clientExample)
-    console.log('< ================== Create or update client. ================== >')
-    console.log(createOrUpdateClient)
+    const clientsList = [
+      clientExample,
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L') },
+      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month').calendar() }
+    ]
+
+    for (let i = 0; i < clientsList.length; i++) {
+      const createOrUpdateClient = await client.createOrUpdate(clientsList[i])
+      console.log('< ================== Create or update client. ================== >')
+      console.log(createOrUpdateClient)
+    }
 
     const getClients = await client.findAll()
     console.log('< ====================== getClients ====================== >')
@@ -49,7 +58,7 @@ const run = async () => {
     console.log('< ====================== getClientsByIdNumber ====================== >')
     console.log(getClientsByIdNumber)
 
-    const getClientsName = await client.findByName('Mora')
+    const getClientsName = await client.findByName('New')
     console.log('< ====================== getClientsName ====================== >')
     console.log(getClientsName)
 
@@ -62,16 +71,3 @@ const run = async () => {
 }
 
 run()
-
-// const clientsList = [
-//   clientBase,
-//   { ...clientBase, name: 'Minor Catillo', idNumber: 222222222 },
-//   { ...clientBase, name: 'Martha Mora', idNumber: 333333333, gender: 'F' },
-//   { ...clientBase, name: 'Michael Catillo', idNumber: 444444444 },
-//   { ...clientBase, name: 'Josseline Catillo', idNumber: 555555555, gender: 'F' }
-// ]
-
-// await clientsList.map(async c => {
-//   const createOrUpdateClient = await client.createOrUpdate(c)
-//   return createOrUpdateClient
-// })

@@ -8,6 +8,7 @@ import setupPaymentModel from './models/payment'
 import defaults from 'defaults'
 
 const db = async config => {
+  // Default config for unit tests.
   config = defaults(config, {
     dialect: 'sqlite',
     pool: {
@@ -29,7 +30,6 @@ const db = async config => {
 
   membershipModel.hasMany(clientModel)
   clientModel.belongsTo(membershipModel)
-
   paymentModel.belongsTo(clientModel)
   paymentModel.belongsTo(userModel)
 
