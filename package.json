@@ -4,10 +4,10 @@
   "description": "RESTful API",
   "main": "src/index.js",
   "scripts": {
-    "test": "DEBUG=db:* nyc ava src/db/test/ --verbose --presets babel-preset-es2015,stage-2",
+    "test": "npm run lint & DEBUG=db:* nyc ava src/db/test/ --verbose --presets babel-preset-es2015,stage-2",
     "start": "nodemon src/api/index.js --exec babel-node --presets babel-preset-es2015,stage-2",
     "lint": "standard --fix",
-    "setup": "DEBUG=db:* babel-node src/db/setup.js --presets babel-preset-es2015,stage-2",
+    "db:setup": "DEBUG=db:* babel-node src/db/setup.js --presets babel-preset-es2015,stage-2",
     "db:examples": "babel-node src/db/examples/index.js --presets babel-preset-es2015,stage-2"
   },
   "pre-commit": "lint",
