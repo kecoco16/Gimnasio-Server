@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "c4093ef9-3a51-4640-88f0-d6ecf16a683d",
+		"name": "Gimnasio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clients",
+			"description": null,
+			"item": [
+				{
+					"name": "Add client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idNumber\": \"604280878\",\n\t\"name\": \"Kevin Castillo Mora\",\n\t\"gender\": \"M\",\n\t\"phone\": \"86501179\",\n\t\"email\": \"kecoco16@gmail.com\",\n\t\"profileImageRoute\": \"./Kevin.png\",\n\t\"payDay\": \"07-25-2018\",\n    \"membershipId\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addClient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"addClient"
+							]
+						},
+						"description": "Add client "
+					},
+					"response": []
+				},
+				{
+					"name": "Get all clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getClients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getClients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get client by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getClient/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search client by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/searchClient/kevin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"searchClient",
+								"kevin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kevin Castillo Mora\",\n\t\"phone\": \"86501179\",\n    \"membershipId\": \"1\",\n\t\"email\": \"kecoco16@gmail.com\",\n    \"profileImageRoute\": \"./Kevin.png\"\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/updateClient/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"updateClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/deleteClient/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"deleteClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get late to pay clients info ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getLateClients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getLateClients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get today pay clients info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getTodayClients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getTodayClients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": null,
+			"item": [
+				{
+					"name": "Add User ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"kevin\",\n\t\"password\": \"Password1\",\n\t\"type\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
