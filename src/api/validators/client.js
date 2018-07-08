@@ -1,15 +1,14 @@
 import * as Joi from 'joi'
 
 const addClientSchema = Joi.object().keys({
-  nombre: Joi.string().required(),
-  cedula: Joi.string().length(9).required(),
-  telefono: Joi.string().length(8).required(),
-  mensualidad: Joi.string().required(),
-  correo: Joi.string().email().required(),
-  sexo: Joi.string().length(1).required(),
-  imagen: Joi.string().required(),
-  hoy: Joi.date().required(),
-  pago: Joi.date().required()
+  idNumber: Joi.string().length(9).required(),
+  name: Joi.string().required(),
+  gender: Joi.string().length(1).required(),
+  phone: Joi.string().length(8).required(),
+  email: Joi.string().email(),
+  profileImageRoute: Joi.string().required(),
+  payDay: Joi.date().required(),
+  membershipId: Joi.string().required()
 })
 
 const idSchema = Joi.object().keys({
@@ -21,11 +20,11 @@ const nameSchema = Joi.object().keys({
 })
 
 const updateClientSchema = Joi.object().keys({
-  nombre: Joi.string(),
-  telefono: Joi.string().length(8),
-  mensualidad: Joi.string(),
-  correo: Joi.string().email(),
-  imagen: Joi.string()
+  name: Joi.string(),
+  phone: Joi.string().length(8),
+  membershipId: Joi.string(),
+  email: Joi.string().email(),
+  profileImageRoute: Joi.string().required()
 })
 
 export const addClientValidate = client => (
