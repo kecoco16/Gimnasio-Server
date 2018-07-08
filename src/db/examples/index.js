@@ -11,7 +11,16 @@ const run = async () => {
   }
 
   try {
-    const { client } = await db(config)
+    const { client, membership } = await db(config)
+
+    const membershipExample = {
+      name: 'Normal',
+      amount: 15000
+    }
+
+    const createOrUpdateMembership = await membership.createOrUpdate(membershipExample)
+    console.log('< ================== Create or update membership. ================== >')
+    console.log(createOrUpdateMembership)
 
     const clientExample = {
       idNumber: 111111111,
@@ -21,7 +30,7 @@ const run = async () => {
       email: 'test@mail.com',
       profileImageRoute: '../profile/name.png',
       payDay: new Date(),
-      membershipId: null
+      membershipId: 1
     }
 
     const createOrUpdateClient = await client.createOrUpdate(clientExample)
