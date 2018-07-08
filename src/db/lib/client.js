@@ -1,3 +1,5 @@
+import { Op } from 'sequelize'
+
 const setupClient = clientModel => {
   const createOrUpdate = async client => {
     const cond = {
@@ -32,7 +34,9 @@ const setupClient = clientModel => {
   const findByName = name => (
     clientModel.findAll({
       where: {
-        name
+        name: {
+          [Op.like]: `%${name}%`
+        }
       }
     })
   )

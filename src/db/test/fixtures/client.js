@@ -13,10 +13,10 @@ const client = {
 
 const clients = [
   client,
-  { ...client, id: 2, name: 'Minor Catillo' },
+  { ...client, id: 2, name: 'Minor Castillo' },
   { ...client, id: 3, name: 'Martha Mora', gender: 'F' },
-  { ...client, id: 4, name: 'Michael Catillo' },
-  { ...client, id: 5, name: 'Josseline Catillo', gender: 'F' },
+  { ...client, id: 4, name: 'Michael Castillo' },
+  { ...client, id: 5, name: 'Josseline Castillo', gender: 'F' },
   { ...client, id: 6, name: 'Conan Castillo', gender: 'M' }
 ]
 
@@ -25,7 +25,7 @@ export default {
   all: clients,
   byId: id => clients.filter(c => c.id === id).shift(),
   byIdNumber: idNumber => clients.filter(c => c.idNumber === idNumber).shift(),
-  byName: name => clients.filter(c => c.name === name),
+  byName: name => clients.filter(c => c.name.includes(name)),
   today: date => clients.filter(c => c.payDay === date),
   late: date => clients.filter(c => c.payDay > date)
 }

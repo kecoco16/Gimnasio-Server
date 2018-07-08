@@ -1,6 +1,7 @@
 import test from 'ava'
 import sinon from 'sinon'
 import clientFixtures from './fixtures/client'
+import { Op } from 'sequelize'
 const proxyquire = require('proxyquire').noCallThru()
 
 const config = {
@@ -15,7 +16,7 @@ let db = null
 let sandbox = null
 const id = 1
 const idNumber = 604280878
-const name = 'Conan Castillo'
+const name = 'Conan'
 const single = { ...clientFixtures.single }
 const newClient = { ...clientFixtures.single, id: 7, name: 'Kratos Castillo', gender: 'M', idNumber: 123456789 }
 
@@ -33,7 +34,9 @@ const idNumberArgs = {
 
 const nameArgs = {
   where: {
-    name
+    name: {
+      [Op.like]: `%${name}%`
+    }
   }
 }
 
