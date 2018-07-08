@@ -2,6 +2,7 @@ import test from 'ava'
 import sinon from 'sinon'
 import clientFixtures from './fixtures/client'
 import { Op } from 'sequelize'
+import moment from 'moment'
 const proxyquire = require('proxyquire').noCallThru()
 
 const config = {
@@ -19,6 +20,7 @@ const idNumber = 604280878
 const name = 'Conan'
 const single = { ...clientFixtures.single }
 const newClient = { ...clientFixtures.single, id: 7, name: 'Kratos Castillo', gender: 'M', idNumber: 123456789 }
+const today = moment().format('L')
 
 const newClientIdArgs = {
   where: {
@@ -37,6 +39,12 @@ const nameArgs = {
     name: {
       [Op.like]: `%${name}%`
     }
+  }
+}
+
+const payTodayArgs = {
+  where: {
+    payDay: today
   }
 }
 
@@ -59,6 +67,7 @@ test.beforeEach(async () => {
   ClientStub.findAll = sandbox.stub()
   ClientStub.findAll.withArgs().returns(Promise.resolve(clientFixtures.all))
   ClientStub.findAll.withArgs(nameArgs).returns(Promise.resolve(clientFixtures.byName(name)))
+  ClientStub.findAll.withArgs(payTodayArgs).returns(Promise.resolve(clientFixtures.byPayToday(today)))
 
   // Model findOne Stub
   ClientStub.findOne = sandbox.stub()
@@ -135,7 +144,6 @@ test.serial('Client#findAll', async t => {
   t.true(ClientStub.findAll.called, 'findAll should be called on model')
   t.true(ClientStub.findAll.calledOnce, 'findAll should be called once')
   t.true(ClientStub.findAll.calledWith(), 'findAll should be called without args')
-  t.is(clients.length, clientFixtures.all.length, 'clients should be the same amount')
 })
 
 test.serial('Client#findById', async t => {
@@ -159,5 +167,13 @@ test.serial('Client#findByName', async t => {
   t.deepEqual(clients, clientFixtures.byName(name), 'should be the same')
   t.true(ClientStub.findAll.called, 'findAll should be called on model')
   t.true(ClientStub.findAll.calledOnce, 'findAll should be called once')
-  t.true(ClientStub.findAll.calledWith(nameArgs), 'findAll should be called with uuid args')
+  t.true(ClientStub.findAll.calledWith(nameArgs), 'findAll should be called with name args')
+})
+
+test.serial('Client#findByPayToday', async t => {
+  const clients = await db.client.findByPayToday(today)
+  t.deepEqual(clients, clientFixtures.byPayToday(today), 'should be the same')
+  t.true(ClientStub.findAll.called, 'findAll should be called on model')
+  t.true(ClientStub.findAll.calledOnce, 'findAll should be called once')
+  t.true(ClientStub.findAll.calledWith(payTodayArgs), 'findAll should be called with pay today args')
 })

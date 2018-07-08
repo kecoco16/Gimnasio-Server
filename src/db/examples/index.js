@@ -58,9 +58,13 @@ const run = async () => {
     console.log('< ====================== getClientsByIdNumber ====================== >')
     console.log(getClientsByIdNumber)
 
-    const getClientsName = await client.findByName('New')
+    const getClientsByName = await client.findByName('New')
     console.log('< ====================== getClientsName ====================== >')
-    console.log(getClientsName)
+    console.log(getClientsByName)
+
+    const getClientsByPayToday = await client.findByPayToday(moment().format('L'))
+    console.log('< ====================== getClientsByPayToday ====================== >')
+    console.log(getClientsByPayToday)
 
     process.exit(0)
   } catch (err) {

@@ -1,4 +1,5 @@
 import { Op } from 'sequelize'
+import moment from 'moment'
 
 const setupClient = clientModel => {
   const createOrUpdate = async client => {
@@ -41,12 +42,21 @@ const setupClient = clientModel => {
     })
   )
 
+  const findByPayToday = () => (
+    clientModel.findAll({
+      where: {
+        payDay: moment().format('L')
+      }
+    })
+  )
+
   return {
     createOrUpdate,
     findAll,
     findById,
     findByIdNumber,
-    findByName
+    findByName,
+    findByPayToday
   }
 }
 
