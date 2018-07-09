@@ -29,5 +29,5 @@ export default {
   byIdNumber: idNumber => clients.filter(c => c.idNumber === idNumber).shift(),
   byName: name => clients.filter(c => c.name.includes(name)),
   byPayToday: date => clients.filter(c => c.payDay === date),
-  byPaylate: date => clients.filter(c => c.payDay > date)
+  byPayLate: date => clients.filter(c => c.payDay < date)
 }

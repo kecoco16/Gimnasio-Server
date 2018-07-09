@@ -50,13 +50,24 @@ const setupClient = clientModel => {
     })
   )
 
+  const findByPayLate = () => (
+    clientModel.findAll({
+      where: {
+        payDay: {
+          [Op.lt]: moment().format('L')
+        }
+      }
+    })
+  )
+
   return {
     createOrUpdate,
     findAll,
     findById,
     findByIdNumber,
     findByName,
-    findByPayToday
+    findByPayToday,
+    findByPayLate
   }
 }
 

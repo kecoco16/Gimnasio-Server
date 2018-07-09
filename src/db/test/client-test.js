@@ -48,6 +48,14 @@ const payTodayArgs = {
   }
 }
 
+const payLateArgs = {
+  where: {
+    payDay: {
+      [Op.lt]: moment().format('L')
+    }
+  }
+}
+
 test.beforeEach(async () => {
   const sandbox = sinon.createSandbox()
 
@@ -68,6 +76,7 @@ test.beforeEach(async () => {
   ClientStub.findAll.withArgs().returns(Promise.resolve(clientFixtures.all))
   ClientStub.findAll.withArgs(nameArgs).returns(Promise.resolve(clientFixtures.byName(name)))
   ClientStub.findAll.withArgs(payTodayArgs).returns(Promise.resolve(clientFixtures.byPayToday(today)))
+  ClientStub.findAll.withArgs(payLateArgs).returns(Promise.resolve(clientFixtures.byPayLate(today)))
 
   // Model findOne Stub
   ClientStub.findOne = sandbox.stub()
@@ -176,4 +185,12 @@ test.serial('Client#findByPayToday', async t => {
   t.true(ClientStub.findAll.called, 'findAll should be called on model')
   t.true(ClientStub.findAll.calledOnce, 'findAll should be called once')
   t.true(ClientStub.findAll.calledWith(payTodayArgs), 'findAll should be called with pay today args')
+})
+
+test.serial('Client#findByPayLate', async t => {
+  const clients = await db.client.findByPayLate(today)
+  t.deepEqual(clients, clientFixtures.byPayLate(today), 'should be the same')
+  t.true(ClientStub.findAll.called, 'findAll should be called on model')
+  t.true(ClientStub.findAll.calledOnce, 'findAll should be called once')
+  t.true(ClientStub.findAll.calledWith(payLateArgs), 'findAll should be called with pay today args')
 })
