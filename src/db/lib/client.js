@@ -1,7 +1,7 @@
 import { Op } from 'sequelize'
 import moment from 'moment'
 
-const setupClient = clientModel => {
+const setupClient = (clientModel, membershipModel) => {
   const createOrUpdate = async client => {
     const cond = {
       where: {
@@ -20,15 +20,32 @@ const setupClient = clientModel => {
     return result.toJSON()
   }
 
-  const findAll = () => clientModel.findAll()
+  const findAll = () => clientModel.findAll({
+    include: [{
+      attributes: ['name', 'amount'],
+      model: membershipModel
+    }],
+    raw: true
+  })
 
-  const findById = id => clientModel.findById(id)
+  const findById = id => clientModel.findById(id, {
+    include: [{
+      attributes: ['name', 'amount'],
+      model: membershipModel
+    }],
+    raw: true
+  })
 
   const findByIdNumber = idNumber => (
     clientModel.findOne({
       where: {
         idNumber
-      }
+      },
+      include: [{
+        attributes: ['name', 'amount'],
+        model: membershipModel
+      }],
+      raw: true
     })
   )
 
@@ -36,9 +53,14 @@ const setupClient = clientModel => {
     clientModel.findAll({
       where: {
         name: {
-          [Op.like]: `%${name}%`
+          [Op.iLike]: `%${name}%`
         }
-      }
+      },
+      include: [{
+        attributes: ['name', 'amount'],
+        model: membershipModel
+      }],
+      raw: true
     })
   )
 
@@ -46,7 +68,12 @@ const setupClient = clientModel => {
     clientModel.findAll({
       where: {
         payDay: moment().format('L')
-      }
+      },
+      include: [{
+        attributes: ['name', 'amount'],
+        model: membershipModel
+      }],
+      raw: true
     })
   )
 
@@ -56,7 +83,12 @@ const setupClient = clientModel => {
         payDay: {
           [Op.lt]: moment().format('L')
         }
-      }
+      },
+      include: [{
+        attributes: ['name', 'amount'],
+        model: membershipModel
+      }],
+      raw: true
     })
   )
 

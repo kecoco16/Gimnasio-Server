@@ -14,14 +14,16 @@ const run = async () => {
   try {
     const { client, membership } = await db(config)
 
-    const membershipExample = {
-      name: 'Normal',
-      amount: 15000
-    }
+    const membershipsExamples = [
+      { name: 'Normal', amount: 15000 },
+      { name: 'Special', amount: 10000 }
+    ]
 
-    const createOrUpdateMembership = await membership.createOrUpdate(membershipExample)
-    console.log('< ================== Create or update membership. ================== >')
-    console.log(createOrUpdateMembership)
+    for (let i = 0; i < membershipsExamples.length; i++) {
+      const createOrUpdateMembership = await membership.createOrUpdate(membershipsExamples[i])
+      console.log('< ================== Create or update membership. ================== >')
+      console.log(createOrUpdateMembership)
+    }
 
     const clientExample = {
       idNumber: 111111111,
@@ -36,7 +38,7 @@ const run = async () => {
 
     const clientsList = [
       clientExample,
-      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L') },
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L'), membershipId: 2 },
       { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month').calendar() }
     ]
 
@@ -58,11 +60,14 @@ const run = async () => {
     console.log('< ====================== getClientsByIdNumber ====================== >')
     console.log(getClientsByIdNumber)
 
-    const getClientsByName = await client.findByName('New')
+    const getClientsByName = await client.findByName('new')
     console.log('< ====================== getClientsName ====================== >')
     console.log(getClientsByName)
 
+    // TODO:
+    // Fix warning value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date().
     const today = moment().format('L')
+
     const getClientsByPayToday = await client.findByPayToday(today)
     console.log('< ====================== getClientsByPayToday ====================== >')
     console.log(getClientsByPayToday)

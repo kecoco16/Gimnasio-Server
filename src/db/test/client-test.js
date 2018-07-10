@@ -37,7 +37,7 @@ const idNumberArgs = {
 const nameArgs = {
   where: {
     name: {
-      [Op.like]: `%${name}%`
+      [Op.iLike]: `%${name}%`
     }
   }
 }

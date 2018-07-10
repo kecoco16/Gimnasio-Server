@@ -39,7 +39,7 @@ const db = async config => {
     await sequelize.sync({force: true})
   }
 
-  const client = setupClient(clientModel)
+  const client = setupClient(clientModel, membershipModel)
   const user = {}
   const membership = setupMembership(membershipModel)
   const payment = {}
