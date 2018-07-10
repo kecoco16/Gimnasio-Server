@@ -10,22 +10,35 @@ const client = {
   profileImageRoute: '../profile/kevin.png',
   payDay: moment().add(1, 'month').calendar(),
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
+  membershipId: 1
 }
 
-const clients = [
-  client,
-  { ...client, id: 2, name: 'Minor Castillo', payDay: moment().format('L') },
-  { ...client, id: 3, name: 'Martha Mora', gender: 'F', payDay: moment().format('L') },
-  { ...client, id: 4, name: 'Michael Castillo', payDay: moment().subtract(1, 'month').calendar() },
-  { ...client, id: 5, name: 'Josseline Castillo', gender: 'F', payDay: moment().subtract(1, 'month').calendar() },
-  { ...client, id: 6, name: 'Conan Castillo', gender: 'M' }
+const memberships = [
+  { id: 1, name: 'Normal', amount: 15000 },
+  { id: 2, name: 'Special', amount: 10000 }
 ]
+
+const clientsList = [
+  client,
+  { ...client, id: 2, name: 'Minor Castillo', payDay: moment().format('L'), membershipId: 2 },
+  { ...client, id: 3, name: 'Martha Mora', gender: 'F', payDay: moment().format('L') },
+  { ...client, id: 4, name: 'Michael Castillo', payDay: moment().subtract(1, 'month').calendar(), membershipId: 2 },
+  { ...client, id: 5, name: 'Josseline Castillo', gender: 'F', payDay: moment().subtract(1, 'month').calendar() },
+  { ...client, id: 6, name: 'Conan Castillo', gender: 'M', membershipId: 2 }
+]
+
+const clients = clientsList.map(c => {
+  const membership = memberships.filter(m => m.id === c.membershipId)
+  const { name, amount } = membership[0]
+  return { ...c, 'membership.name': name, 'membership.amount': amount }
+})
 
 export default {
   single: client,
   all: clients,
   byId: id => clients.filter(c => c.id === id).shift(),
+  byIdNumberUpdate: idNumber => clientsList.filter(c => c.idNumber === idNumber).shift(),
   byIdNumber: idNumber => clients.filter(c => c.idNumber === idNumber).shift(),
   byName: name => clients.filter(c => c.name.includes(name)),
   byPayToday: date => clients.filter(c => c.payDay === date),
