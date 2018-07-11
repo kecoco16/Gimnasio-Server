@@ -1,15 +1,56 @@
 import test from 'ava'
-import setupDataBase from '../'
+import sinon from 'sinon'
+const proxyquire = require('proxyquire').noCallThru()
 
+let ClientStub = null
+let MembershipStub = null
+let PaymentStub = null
+let UserStub = null
 let db = null
+let sandbox = null
+
 const config = {
   logging () {}
 }
 
 test.beforeEach(async () => {
-  db = await setupDataBase(config)
+  sandbox = sinon.createSandbox()
+
+  ClientStub = {
+    belongsTo: sandbox.spy()
+  }
+
+  MembershipStub = {
+    hasMany: sandbox.spy()
+  }
+
+  PaymentStub = {
+    belongsTo: sandbox.spy()
+  }
+  const setupDatabase = proxyquire('../', {
+    './models/client': () => ClientStub,
+    './models/membership': () => MembershipStub,
+    './models/payment': () => PaymentStub,
+    './models/user': () => UserStub
+  })
+  db = await setupDatabase(config)
 })
 
-test('User', t => {
+test.afterEach(() => {
+  sandbox && sandbox.restore()
+})
+
+test.serial('User', t => {
   t.truthy(db.user, 'User service should exist')
+})
+
+test.serial('Setup', t => {
+  t.true(ClientStub.belongsTo.called, 'ClientModel.belongsTo was executed')
+  t.true(ClientStub.belongsTo.calledWith(MembershipStub), 'Argument should be the MembershipModel')
+  t.true(MembershipStub.hasMany.called, 'MembershipModel.hasMany was executed')
+  t.true(MembershipStub.hasMany.calledWith(ClientStub), 'Argument should be the ClientModel')
+  t.true(PaymentStub.belongsTo.called, 'PaymentModel.belongsTo was executed')
+  t.true(PaymentStub.belongsTo.calledWith(ClientStub), 'Argument should be the ClientModel')
+  t.true(PaymentStub.belongsTo.called, 'PaymentModel.belongsTo was executed')
+  t.true(PaymentStub.belongsTo.calledWith(UserStub), 'Argument should be the UserModel')
 })

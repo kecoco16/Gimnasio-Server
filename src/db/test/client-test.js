@@ -82,7 +82,7 @@ const payLateArgs = {
 }
 
 test.beforeEach(async () => {
-  const sandbox = sinon.createSandbox()
+  sandbox = sinon.createSandbox()
 
   ClientStub = {
     belongsTo: sandbox.spy()
@@ -101,6 +101,16 @@ test.beforeEach(async () => {
   payLateArgs.include[0].model = MembershipStub
   idNumberArgs.include[0].model = MembershipStub
 
+  // Model create Stub
+  ClientStub.create = sandbox.stub()
+  ClientStub.create.withArgs(newClient).returns(Promise.resolve({
+    toJSON () { return newClient }
+  }))
+
+  // Model update Stub
+  ClientStub.update = sandbox.stub()
+  ClientStub.update.withArgs(single, idNumberUpdateArgs).returns(Promise.resolve(single))
+
   // Model findAll Stub
   ClientStub.findAll = sandbox.stub()
   ClientStub.findAll.withArgs().returns(Promise.resolve(clientFixtures.all))
@@ -108,24 +118,14 @@ test.beforeEach(async () => {
   ClientStub.findAll.withArgs(payTodayArgs).returns(Promise.resolve(clientFixtures.byPayToday(today)))
   ClientStub.findAll.withArgs(payLateArgs).returns(Promise.resolve(clientFixtures.byPayLate(today)))
 
+  // Model findById Stub
+  ClientStub.findById = sandbox.stub()
+  ClientStub.findById.withArgs(id).returns(Promise.resolve(clientFixtures.byId(id)))
+
   // Model findOne Stub
   ClientStub.findOne = sandbox.stub()
   ClientStub.findOne.withArgs(idNumberUpdateArgs).returns(Promise.resolve(clientFixtures.byIdNumberUpdate(idNumber)))
   ClientStub.findOne.withArgs(idNumberArgs).returns(Promise.resolve(clientFixtures.byIdNumber(idNumber)))
-
-  // Model update Stub
-  ClientStub.update = sandbox.stub()
-  ClientStub.update.withArgs(single, idNumberUpdateArgs).returns(Promise.resolve(single))
-
-  // Model create Stub
-  ClientStub.create = sandbox.stub()
-  ClientStub.create.withArgs(newClient).returns(Promise.resolve({
-    toJSON () { return newClient }
-  }))
-
-  // Model findById Stub
-  ClientStub.findById = sandbox.stub()
-  ClientStub.findById.withArgs(id).returns(Promise.resolve(clientFixtures.byId(id)))
 
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,
@@ -158,13 +158,13 @@ test.serial('Setup', t => {
 
 test.serial('Client#createOrUpdate - new', async t => {
   const client = await db.client.createOrUpdate(newClient)
+  t.deepEqual(client, newClient, 'client should be the same')
   t.true(ClientStub.findOne.called, 'findOne should be called on model')
   t.true(ClientStub.findOne.calledOnce, 'findOne should be called once')
   t.true(ClientStub.findOne.calledWith(newClientIdArgs), 'findOne should be called with idNumber args')
   t.true(ClientStub.create.called, 'create should be called on model')
   t.true(ClientStub.create.calledOnce, 'create should be called once')
   t.true(ClientStub.create.calledWith(newClient), 'create should be called with specified args')
-  t.deepEqual(client, newClient, 'client should be the same')
 })
 
 test.serial('Client#createOrUpdate - exist', async t => {
