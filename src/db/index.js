@@ -4,7 +4,9 @@ import setupClient from './lib/client'
 import setupMembershipModel from './models/membership'
 import setupMembership from './lib/membership'
 import setupUserModel from './models/user'
+import setupUser from './lib/user'
 import setupPaymentModel from './models/payment'
+import setupPayment from './lib/payment'
 import defaults from 'defaults'
 
 const db = async config => {
@@ -40,9 +42,9 @@ const db = async config => {
   }
 
   const client = setupClient(clientModel, membershipModel)
-  const user = {}
+  const user = setupUser(userModel)
   const membership = setupMembership(membershipModel)
-  const payment = {}
+  const payment = setupPayment(paymentModel, clientModel, userModel)
 
   return {
     user,

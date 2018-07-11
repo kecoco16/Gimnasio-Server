@@ -10,7 +10,11 @@ const setupPaymentModel = config => {
       allowNull: false
     },
     payDay: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
+      allowNull: false
+    },
+    date: {
+      type: Sequelize.DATE,
       allowNull: false
     }
   })

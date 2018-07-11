@@ -1,5 +1,6 @@
 import test from 'ava'
 import sinon from 'sinon'
+import userFixtures from './fixtures/user'
 const proxyquire = require('proxyquire').noCallThru()
 
 let ClientStub = null
@@ -8,9 +9,25 @@ let PaymentStub = null
 let UserStub = null
 let db = null
 let sandbox = null
+const id = 1
+const newUser = { ...userFixtures.single, id: 3, name: 'Test', amount: 20000 }
+const name = 'Admin'
+const single = { ...userFixtures.single }
 
 const config = {
   logging () {}
+}
+
+const newNameArgs = {
+  where: {
+    name: newUser.name
+  }
+}
+
+const updateNameArgs = {
+  where: {
+    name
+  }
 }
 
 test.beforeEach(async () => {
@@ -27,6 +44,31 @@ test.beforeEach(async () => {
   PaymentStub = {
     belongsTo: sandbox.spy()
   }
+
+  UserStub = {}
+
+  // Model create Stub
+  UserStub.create = sandbox.stub()
+  UserStub.create.withArgs(newUser).returns(Promise.resolve({
+    toJSON () { return newUser }
+  }))
+
+  // Model update Stub
+  UserStub.update = sandbox.stub()
+  UserStub.update.withArgs(single, updateNameArgs).returns(Promise.resolve(single))
+
+  // Model findAll Stub
+  UserStub.findAll = sandbox.stub()
+  UserStub.findAll.withArgs().returns(Promise.resolve(userFixtures.all))
+
+  // Model findById Stub
+  UserStub.findById = sandbox.stub()
+  UserStub.findById.withArgs(id).returns(Promise.resolve(userFixtures.byId(id)))
+
+  // Model findOne Stub
+  UserStub.findOne = sandbox.stub()
+  UserStub.findOne.withArgs(updateNameArgs).returns(Promise.resolve(userFixtures.ByName(name)))
+
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,
     './models/membership': () => MembershipStub,
@@ -53,4 +95,42 @@ test.serial('Setup', t => {
   t.true(PaymentStub.belongsTo.calledWith(ClientStub), 'Argument should be the ClientModel')
   t.true(PaymentStub.belongsTo.called, 'PaymentModel.belongsTo was executed')
   t.true(PaymentStub.belongsTo.calledWith(UserStub), 'Argument should be the UserModel')
+})
+
+test.serial('User#createOrUpdate - new', async t => {
+  const user = await db.user.createOrUpdate(newUser)
+  t.deepEqual(user, newUser, 'user should be the same')
+  t.true(UserStub.findOne.called, 'findOne should be called on model')
+  t.true(UserStub.findOne.calledOnce, 'findOne should be called once')
+  t.true(UserStub.findOne.calledWith(newNameArgs), 'findOne should be called with name args')
+  t.true(UserStub.create.called, 'create should be called on model')
+  t.true(UserStub.create.calledOnce, 'create should be called once')
+  t.true(UserStub.create.calledWith(newUser), 'create should be called with specified args')
+})
+
+test.serial('User#createOrUpdate - exist', async t => {
+  const user = await db.user.createOrUpdate(single)
+  t.deepEqual(user, single, 'user should be the same')
+  t.true(UserStub.findOne.called, 'findOne should be called on model')
+  t.true(UserStub.findOne.calledTwice, 'findOne should be called once')
+  t.true(UserStub.findOne.calledWith(updateNameArgs), 'findOne should be called with specified name')
+  t.true(UserStub.update.called, 'update called on model')
+  t.true(UserStub.update.calledOnce, 'update should be called once')
+  t.true(UserStub.update.calledWith(single), 'update should be called with specified args')
+})
+
+test.serial('User#findAll', async t => {
+  const users = await db.user.findAll()
+  t.deepEqual(users, userFixtures.all, 'user should be the same')
+  t.true(UserStub.findAll.called, 'findAll should be called on model')
+  t.true(UserStub.findAll.calledOnce, 'findAll should be called once')
+  t.true(UserStub.findAll.calledWith(), 'findAll should be called without args')
+})
+
+test.serial('Client#findById', async t => {
+  const user = await db.user.findById(id)
+  t.deepEqual(user, userFixtures.byId(id), 'user should be the same')
+  t.true(UserStub.findById.called, 'findById should be called on model')
+  t.true(UserStub.findById.calledOnce, 'findById should be called once')
+  t.true(UserStub.findById.calledWith(id), 'findById should be called with specified id')
 })
