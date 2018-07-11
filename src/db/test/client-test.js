@@ -82,7 +82,7 @@ const payLateArgs = {
 }
 
 test.beforeEach(async () => {
-  const sandbox = sinon.createSandbox()
+  sandbox = sinon.createSandbox()
 
   ClientStub = {
     belongsTo: sandbox.spy()
