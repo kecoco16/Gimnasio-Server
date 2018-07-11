@@ -12,7 +12,26 @@ const run = async () => {
   }
 
   try {
-    const { client, membership } = await db(config)
+    const { client, membership, user } = await db(config)
+
+    const usersExamples = [
+      { name: 'Admin', password: 'Admin1', type: 'admin' },
+      { name: 'Root', password: 'Root1', type: 'root' }
+    ]
+
+    for (let i = 0; i < usersExamples.length; i++) {
+      const createOrUpdateUser = await user.createOrUpdate(usersExamples[i])
+      console.log('< ================== Create or update user. ================== >')
+      console.log(createOrUpdateUser)
+    }
+
+    const getUsers = await user.findAll()
+    console.log('< ====================== getUsers ====================== >')
+    console.log(getUsers)
+
+    const getUserById = await user.findById(1)
+    console.log('< ====================== getUserById ====================== >')
+    console.log(getUserById)
 
     const membershipsExamples = [
       { name: 'Normal', amount: 15000 },
@@ -24,6 +43,14 @@ const run = async () => {
       console.log('< ================== Create or update membership. ================== >')
       console.log(createOrUpdateMembership)
     }
+
+    const getMemberships = await membership.findAll()
+    console.log('< ====================== getMemberships ====================== >')
+    console.log(getMemberships)
+
+    const getMembershipById = await membership.findById(1)
+    console.log('< ====================== getMembershipById ====================== >')
+    console.log(getMembershipById)
 
     const clientExample = {
       idNumber: 111111111,
@@ -52,16 +79,16 @@ const run = async () => {
     console.log('< ====================== getClients ====================== >')
     console.log(getClients)
 
-    const getClientsById = await client.findById(1)
-    console.log('< ====================== getClientsById ====================== >')
-    console.log(getClientsById)
+    const getClientById = await client.findById(1)
+    console.log('< ====================== getClientById ====================== >')
+    console.log(getClientById)
 
-    const getClientsByIdNumber = await client.findByIdNumber(111111111)
-    console.log('< ====================== getClientsByIdNumber ====================== >')
-    console.log(getClientsByIdNumber)
+    const getClientByIdNumber = await client.findByIdNumber(111111111)
+    console.log('< ====================== getClientByIdNumber ====================== >')
+    console.log(getClientByIdNumber)
 
     const getClientsByName = await client.findByName('new')
-    console.log('< ====================== getClientsName ====================== >')
+    console.log('< ====================== getClientsByName ====================== >')
     console.log(getClientsByName)
 
     // TODO:

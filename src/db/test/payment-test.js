@@ -27,6 +27,7 @@ test.beforeEach(async () => {
   PaymentStub = {
     belongsTo: sandbox.spy()
   }
+
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,
     './models/membership': () => MembershipStub,
