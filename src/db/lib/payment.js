@@ -1,9 +1,9 @@
-// import { Op } from 'sequelize'
-// import moment from 'moment'
+import { Op } from 'sequelize'
+import moment from 'moment'
 
 const setupPayment = (paymentModel, clientModel, userModel) => {
   const create = async payment => {
-    const result = await clientModel.create(payment)
+    const result = await paymentModel.create(payment)
     return result.toJSON()
   }
 
@@ -19,78 +19,47 @@ const setupPayment = (paymentModel, clientModel, userModel) => {
     raw: true
   })
 
-  // const findById = id => clientModel.findById(id, {
-  //   include: [{
-  //     attributes: ['name', 'amount'],
-  //     model: membershipModel
-  //   }],
-  //   raw: true
-  // })
+  const findByPayToday = () => (
+    paymentModel.findAll({
+      where: {
+        date: moment().format('L')
+      },
+      include: [{
+        attributes: ['name'],
+        model: clientModel
+      },
+      {
+        attributes: ['name'],
+        model: userModel
+      }],
+      raw: true
+    })
+  )
 
-  // const findByIdNumber = idNumber => (
-  //   clientModel.findOne({
-  //     where: {
-  //       idNumber
-  //     },
-  //     include: [{
-  //       attributes: ['name', 'amount'],
-  //       model: membershipModel
-  //     }],
-  //     raw: true
-  //   })
-  // )
-
-  // const findByName = name => (
-  //   clientModel.findAll({
-  //     where: {
-  //       name: {
-  //         [Op.iLike]: `%${name}%`
-  //       }
-  //     },
-  //     include: [{
-  //       attributes: ['name', 'amount'],
-  //       model: membershipModel
-  //     }],
-  //     raw: true
-  //   })
-  // )
-
-  // const findByPayToday = () => (
-  //   clientModel.findAll({
-  //     where: {
-  //       payDay: moment().format('L')
-  //     },
-  //     include: [{
-  //       attributes: ['name', 'amount'],
-  //       model: membershipModel
-  //     }],
-  //     raw: true
-  //   })
-  // )
-
-  // const findByPayLate = () => (
-  //   clientModel.findAll({
-  //     where: {
-  //       payDay: {
-  //         [Op.lt]: moment().format('L')
-  //       }
-  //     },
-  //     include: [{
-  //       attributes: ['name', 'amount'],
-  //       model: membershipModel
-  //     }],
-  //     raw: true
-  //   })
-  // )
+  const findByDate = (from, to) => (
+    paymentModel.findAll({
+      where: {
+        date: {
+          [Op.between]: [from, to]
+        }
+      },
+      include: [{
+        attributes: ['name'],
+        model: clientModel
+      },
+      {
+        attributes: ['name'],
+        model: userModel
+      }],
+      raw: true
+    })
+  )
 
   return {
     create,
-    findAll
-    // findById,
-    // findByIdNumber,
-    // findByName,
-    // findByPayToday,
-    // findByPayLate
+    findAll,
+    findByPayToday,
+    findByDate
   }
 }
 

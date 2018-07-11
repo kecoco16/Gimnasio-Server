@@ -12,13 +12,51 @@ const run = async () => {
   }
 
   try {
-    const { client, membership, user } = await db(config)
+    const { client, membership, user, payment } = await db(config)
 
     const usersExamples = [
       { name: 'Admin', password: 'Admin1', type: 'admin' },
       { name: 'Root', password: 'Root1', type: 'root' }
     ]
 
+    const membershipsExamples = [
+      { name: 'Normal', amount: 15000 },
+      { name: 'Special', amount: 10000 }
+    ]
+
+    const clientExample = {
+      idNumber: 111111111,
+      name: 'New Client',
+      gender: 'M',
+      phone: 88888888,
+      email: 'test@mail.com',
+      profileImageRoute: '../profile/name.png',
+      payDay: moment().add(1, 'months').calendar(),
+      membershipId: 1
+    }
+
+    const clientsList = [
+      clientExample,
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L'), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month').calendar() }
+    ]
+
+    const paymentExample = {
+      amount: 10000,
+      payDay: moment().format('L'),
+      date: moment().format('L'),
+      clientId: 1,
+      userId: 1
+    }
+
+    const paymentsList = [
+      paymentExample,
+      { ...paymentExample, amount: 15000, payDay: moment().subtract(1, 'month').calendar(), clientId: 2, userId: 2 },
+      { ...paymentExample, payDay: moment().subtract(7, 'days').calendar(), userId: 2, date: moment().add(1, 'month').calendar() },
+      { ...paymentExample, clientId: 2, date: moment().subtract(10, 'days').calendar() }
+    ]
+
+    // < ============================================= User Examples ============================================= >
     for (let i = 0; i < usersExamples.length; i++) {
       const createOrUpdateUser = await user.createOrUpdate(usersExamples[i])
       console.log('< ================== Create or update user. ================== >')
@@ -33,11 +71,9 @@ const run = async () => {
     console.log('< ====================== getUserById ====================== >')
     console.log(getUserById)
 
-    const membershipsExamples = [
-      { name: 'Normal', amount: 15000 },
-      { name: 'Special', amount: 10000 }
-    ]
+    // < ============================================ User Examples ============================================ />
 
+    // < ========================================== Membership Examples ========================================== >
     for (let i = 0; i < membershipsExamples.length; i++) {
       const createOrUpdateMembership = await membership.createOrUpdate(membershipsExamples[i])
       console.log('< ================== Create or update membership. ================== >')
@@ -52,23 +88,9 @@ const run = async () => {
     console.log('< ====================== getMembershipById ====================== >')
     console.log(getMembershipById)
 
-    const clientExample = {
-      idNumber: 111111111,
-      name: 'New Client',
-      gender: 'M',
-      phone: 88888888,
-      email: 'test@mail.com',
-      profileImageRoute: '../profile/name.png',
-      payDay: moment().add(1, 'month').calendar(),
-      membershipId: 1
-    }
+    // < ========================================== Membership Examples ========================================== />
 
-    const clientsList = [
-      clientExample,
-      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L'), membershipId: 2 },
-      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month').calendar() }
-    ]
-
+    // < ============================================ Client Examples ============================================ >
     for (let i = 0; i < clientsList.length; i++) {
       const createOrUpdateClient = await client.createOrUpdate(clientsList[i])
       console.log('< ================== Create or update client. ================== >')
@@ -102,6 +124,31 @@ const run = async () => {
     const getClientsByPayLate = await client.findByPayLate(today)
     console.log('< ====================== getClientsByPayLate ====================== >')
     console.log(getClientsByPayLate)
+
+    // < ============================================ Client Examples ============================================ />
+
+    // < ========================================== Payments Examples ========================================== >
+    for (let i = 0; i < paymentsList.length; i++) {
+      const createPayment = await payment.create(paymentsList[i])
+      console.log('< ================== Create or update payment. ================== >')
+      console.log(createPayment)
+    }
+
+    const getPayments = await payment.findAll()
+    console.log('< ====================== getPayments ====================== >')
+    console.log(getPayments)
+
+    const getPaymentsToday = await payment.findByPayToday()
+    console.log('< ====================== getPaymentsToday ====================== >')
+    console.log(getPaymentsToday)
+
+    const from = moment().subtract(1, 'month').calendar()
+    const to = moment().add(1, 'day').calendar()
+    const getPaymentsFilter = await payment.findByDate(from, to)
+    console.log('< ====================== getPaymentsFilter ====================== >')
+    console.log(getPaymentsFilter)
+
+    // < ========================================== Payments Examples ========================================== />
 
     process.exit(0)
   } catch (err) {
