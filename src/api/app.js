@@ -5,7 +5,7 @@ import asyncify from 'express-asyncify'
 // Routes
 import main from './routes/main'
 import clientRoutes from './routes/client'
-import { addUser } from './routes/user'
+import userRoutes from './routes/user'
 
 const app = asyncify(express())
 const router = asyncify(express.Router())
@@ -20,6 +20,6 @@ main(router)
 clientRoutes(router)
 
 // User routes
-addUser(router)
+userRoutes(router)
 
 export default app
