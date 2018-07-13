@@ -1,12 +1,17 @@
+// Setups.
 import setupDataBase from './lib/db'
 import setupClientModel from './models/client'
 import setupClient from './lib/client'
-import setupMembershipModel from './models/membership'
 import setupMembership from './lib/membership'
-import setupUserModel from './models/user'
 import setupUser from './lib/user'
-import setupPaymentModel from './models/payment'
 import setupPayment from './lib/payment'
+
+// Models.
+import setupMembershipModel from './models/membership'
+import setupUserModel from './models/user'
+import setupPaymentModel from './models/payment'
+
+// Dependencies.
 import defaults from 'defaults'
 
 const db = async config => {
@@ -24,12 +29,14 @@ const db = async config => {
     operatorsAliases: false
   })
 
+  // Define Models.
   const sequelize = setupDataBase(config)
   const clientModel = setupClientModel(config)
   const membershipModel = setupMembershipModel(config)
   const paymentModel = setupPaymentModel(config)
   const userModel = setupUserModel(config)
 
+  // Relationships.
   membershipModel.hasMany(clientModel)
   clientModel.belongsTo(membershipModel)
   paymentModel.belongsTo(clientModel)

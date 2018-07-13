@@ -1,3 +1,4 @@
+// Schemas.
 import {
   addUserValidate
 } from '../validators/user'

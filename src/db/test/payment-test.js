@@ -1,8 +1,11 @@
+// Fixtures.
+import paymentFixtures from './fixtures/payment'
+
+// Dependencies.
 import test from 'ava'
 import sinon from 'sinon'
 import moment from 'moment'
 import { Op } from 'sequelize'
-import paymentFixtures from './fixtures/payment'
 const proxyquire = require('proxyquire').noCallThru()
 
 let ClientStub = null

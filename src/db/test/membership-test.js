@@ -1,6 +1,9 @@
+// Fixtures.
+import membershipFixtures from './fixtures/membership'
+
+// Dependencies.
 import test from 'ava'
 import sinon from 'sinon'
-import membershipFixtures from './fixtures/membership'
 const proxyquire = require('proxyquire').noCallThru()
 
 let ClientStub = null

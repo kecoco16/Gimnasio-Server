@@ -1,3 +1,4 @@
+// Dependencies.
 import Sequelize from 'sequelize'
 
 let sequelize = null

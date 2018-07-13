@@ -1,75 +1,98 @@
+// DataBase.
+import db from '../db'
+
+// Schemas.
 import {
   addClientValidate,
   getClientValidate,
-  searchClientValidate,
-  deleteClientValidate,
-  updateClientValidate
+  searchClientValidate
 } from '../validators/client'
 
-export const addClient = router => {
-  router.post('/api/addClient', (req, res) => {
+// Debug.
+const debug = require('debug')('api:client')
+
+const clientRoutes = async router => {
+  const { client } = await db()
+
+  router.post('/api/addClient', async (req, res, next) => {
+    debug('A request has come to /api/addClient')
     const { error } = addClientValidate(req.body)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    res.send('//TODO add client in DB')
+    let Client = []
+    try {
+      Client = await client.createOrUpdate(req.body)
+    } catch (err) {
+      return next(err)
+    }
+    res.send(Client)
   })
-}
 
-export const getClients = router => {
-  router.get('/api/getClients', (req, res) => {
-    res.send('//TODO get clients info')
+  router.get('/api/getClients', async (req, res, next) => {
+    debug('A request has come to /api/getClients')
+    let Clients = []
+    try {
+      Clients = await client.findAll()
+    } catch (err) {
+      return next(err)
+    }
+    res.send(Clients)
   })
-}
 
-export const getClient = router => {
-  router.get('/api/getClient/:id', (req, res) => {
+  router.get('/api/getClient/:id', async (req, res, next) => {
+    debug('A request has come to /api/getClient/:id')
     const { error } = getClientValidate(req.params)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    res.send('//TODO get client info')
+    const { id } = req.params
+    let Client = []
+    try {
+      Client = await client.findById(id)
+    } catch (e) {
+      return next(e)
+    }
+    res.send(Client)
   })
-}
 
-export const searchClient = router => {
-  router.get('/api/searchClient/:name', (req, res) => {
+  router.get('/api/searchClient/:name', async (req, res, next) => {
+    debug('A request has come to /api/searchClient/:name')
     const { error } = searchClientValidate(req.params)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    res.send('//TODO search client info by name')
-  })
-}
-
-export const getLateClients = router => {
-  router.get('/api/getLateClients', (req, res) => {
-    res.send('//TODO get late to pay clients info')
-  })
-}
-
-export const getTodayClients = router => {
-  router.get('/api/getTodayClients', (req, res) => {
-    res.send('//TODO get today pay clients info')
-  })
-}
-
-export const deleteClient = router => {
-  router.delete('/api/deleteClient/:id', (req, res) => {
-    const { error } = deleteClientValidate(req.params)
-    if (error) {
-      return res.status(400).send(error.details[0].message)
+    const { name } = req.params
+    let Client = []
+    try {
+      Client = await client.findByName(name)
+    } catch (e) {
+      return next(e)
     }
-    res.send('//TODO delete client in DB')
+    res.send(Client)
+  })
+
+  router.get('/api/getLateClients', async (req, res, next) => {
+    debug('A request has come to /api/getLateClients')
+    let Clients = []
+    try {
+      Clients = await client.findByPayLate()
+    } catch (err) {
+      return next(err)
+    }
+    res.send(Clients)
+  })
+
+  router.get('/api/getTodayClients', async (req, res, next) => {
+    debug('A request has come to /api/getTodayClients')
+    let Clients = []
+    try {
+      Clients = await client.findByPayToday()
+    } catch (err) {
+      return next(err)
+    }
+    res.send(Clients)
   })
 }
 
-export const updateClient = router => {
-  router.put('/api/updateClient/:id', (req, res) => {
-    const { error } = updateClientValidate(req.body)
-    if (error) {
-      return res.status(400).send(error.details[0].message)
-    }
-    res.send('//TODO update client in DB')
-  })
-}
+export default clientRoutes

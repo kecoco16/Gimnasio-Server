@@ -1,39 +1,25 @@
+// Dependencies.
 import express from 'express'
-import main from './routes/main'
-import {
-  addClient,
-  getClients,
-  getClient,
-  getLateClients,
-  getTodayClients,
-  searchClient,
-  deleteClient,
-  updateClient
-} from './routes/client'
+import asyncify from 'express-asyncify'
 
+// Routes
+import main from './routes/main'
+import clientRoutes from './routes/client'
 import { addUser } from './routes/user'
 
-const app = express()
-const router = express.Router()
+const app = asyncify(express())
+const router = asyncify(express.Router())
 
 app.use(express.json())
+app.use('/', router)
 
 // Main route
 main(router)
 
 // Client routes
-addClient(router)
-getClients(router)
-getClient(router)
-getLateClients(router)
-getTodayClients(router)
-searchClient(router)
-deleteClient(router)
-updateClient(router)
+clientRoutes(router)
 
 // User routes
 addUser(router)
-
-app.use('/', router)
 
 export default app

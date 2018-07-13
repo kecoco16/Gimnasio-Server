@@ -1,4 +1,8 @@
+// Dependencies.
 import moment from 'moment'
+const debug = require('debug')('db:examples')
+
+// DataBase.
 const db = require('../')
 
 const run = async () => {
@@ -8,7 +12,8 @@ const run = async () => {
     password: process.env.DB_PASS || 'coco',
     host: process.env.DB_HOST || 'localhost',
     dialect: 'postgres',
-    operatorsAliases: false
+    operatorsAliases: false,
+    logging: s => debug(s)
   }
 
   try {
@@ -59,94 +64,94 @@ const run = async () => {
     // < ============================================= User Examples ============================================= >
     for (let i = 0; i < usersExamples.length; i++) {
       const createOrUpdateUser = await user.createOrUpdate(usersExamples[i])
-      console.log('< ================== Create or update user. ================== >')
-      console.log(createOrUpdateUser)
+      debug('< ================== Create or update user. ================== >')
+      debug(createOrUpdateUser)
     }
 
     const getUsers = await user.findAll()
-    console.log('< ====================== getUsers ====================== >')
-    console.log(getUsers)
+    debug('< ====================== getUsers ====================== >')
+    debug(getUsers)
 
     const getUserById = await user.findById(1)
-    console.log('< ====================== getUserById ====================== >')
-    console.log(getUserById)
+    debug('< ====================== getUserById ====================== >')
+    debug(getUserById)
 
     // < ============================================ User Examples ============================================ />
 
     // < ========================================== Membership Examples ========================================== >
     for (let i = 0; i < membershipsExamples.length; i++) {
       const createOrUpdateMembership = await membership.createOrUpdate(membershipsExamples[i])
-      console.log('< ================== Create or update membership. ================== >')
-      console.log(createOrUpdateMembership)
+      debug('< ================== Create or update membership. ================== >')
+      debug(createOrUpdateMembership)
     }
 
     const getMemberships = await membership.findAll()
-    console.log('< ====================== getMemberships ====================== >')
-    console.log(getMemberships)
+    debug('< ====================== getMemberships ====================== >')
+    debug(getMemberships)
 
     const getMembershipById = await membership.findById(1)
-    console.log('< ====================== getMembershipById ====================== >')
-    console.log(getMembershipById)
+    debug('< ====================== getMembershipById ====================== >')
+    debug(getMembershipById)
 
     // < ========================================== Membership Examples ========================================== />
 
     // < ============================================ Client Examples ============================================ >
     for (let i = 0; i < clientsList.length; i++) {
       const createOrUpdateClient = await client.createOrUpdate(clientsList[i])
-      console.log('< ================== Create or update client. ================== >')
-      console.log(createOrUpdateClient)
+      debug('< ================== Create or update client. ================== >')
+      debug(createOrUpdateClient)
     }
 
     const getClients = await client.findAll()
-    console.log('< ====================== getClients ====================== >')
-    console.log(getClients)
+    debug('< ====================== getClients ====================== >')
+    debug(getClients)
 
     const getClientById = await client.findById(1)
-    console.log('< ====================== getClientById ====================== >')
-    console.log(getClientById)
+    debug('< ====================== getClientById ====================== >')
+    debug(getClientById)
 
     const getClientByIdNumber = await client.findByIdNumber(111111111)
-    console.log('< ====================== getClientByIdNumber ====================== >')
-    console.log(getClientByIdNumber)
+    debug('< ====================== getClientByIdNumber ====================== >')
+    debug(getClientByIdNumber)
 
     const getClientsByName = await client.findByName('new')
-    console.log('< ====================== getClientsByName ====================== >')
-    console.log(getClientsByName)
+    debug('< ====================== getClientsByName ====================== >')
+    debug(getClientsByName)
 
     // TODO:
     // Fix warning value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date().
     const today = moment().format('L')
 
     const getClientsByPayToday = await client.findByPayToday(today)
-    console.log('< ====================== getClientsByPayToday ====================== >')
-    console.log(getClientsByPayToday)
+    debug('< ====================== getClientsByPayToday ====================== >')
+    debug(getClientsByPayToday)
 
     const getClientsByPayLate = await client.findByPayLate(today)
-    console.log('< ====================== getClientsByPayLate ====================== >')
-    console.log(getClientsByPayLate)
+    debug('< ====================== getClientsByPayLate ====================== >')
+    debug(getClientsByPayLate)
 
     // < ============================================ Client Examples ============================================ />
 
     // < ========================================== Payments Examples ========================================== >
     for (let i = 0; i < paymentsList.length; i++) {
       const createPayment = await payment.create(paymentsList[i])
-      console.log('< ================== Create or update payment. ================== >')
-      console.log(createPayment)
+      debug('< ================== Create or update payment. ================== >')
+      debug(createPayment)
     }
 
     const getPayments = await payment.findAll()
-    console.log('< ====================== getPayments ====================== >')
-    console.log(getPayments)
+    debug('< ====================== getPayments ====================== >')
+    debug(getPayments)
 
     const getPaymentsToday = await payment.findByPayToday()
-    console.log('< ====================== getPaymentsToday ====================== >')
-    console.log(getPaymentsToday)
+    debug('< ====================== getPaymentsToday ====================== >')
+    debug(getPaymentsToday)
 
     const from = moment().subtract(1, 'month').calendar()
     const to = moment().add(1, 'day').calendar()
     const getPaymentsFilter = await payment.findByDate(from, to)
-    console.log('< ====================== getPaymentsFilter ====================== >')
-    console.log(getPaymentsFilter)
+    debug('< ====================== getPaymentsFilter ====================== >')
+    debug(getPaymentsFilter)
 
     // < ========================================== Payments Examples ========================================== />
 
