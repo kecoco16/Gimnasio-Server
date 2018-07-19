@@ -1,7 +1,8 @@
 // Dependencies.
 import * as Joi from 'joi'
 
-const addClientSchema = Joi.object().keys({
+// Schemas
+const createOrUpdateClientSchema = Joi.object().keys({
   idNumber: Joi.string().length(9).required(),
   name: Joi.string().required(),
   gender: Joi.string().length(1).required(),
@@ -20,30 +21,15 @@ const nameSchema = Joi.object().keys({
   name: Joi.string().required()
 })
 
-const updateClientSchema = Joi.object().keys({
-  name: Joi.string(),
-  phone: Joi.string().length(8),
-  membershipId: Joi.string(),
-  email: Joi.string().email(),
-  profileImageRoute: Joi.string().required()
-})
-
-export const addClientValidate = client => (
-  Joi.validate(client, addClientSchema)
+// Validates
+export const createOrUpdateClientValidate = client => (
+  Joi.validate(client, createOrUpdateClientSchema)
 )
 
-export const getClientValidate = clientId => (
+export const getClientByIdValidate = clientId => (
   Joi.validate(clientId, idSchema)
 )
 
-export const searchClientValidate = clientName => (
+export const getClientByNameValidate = clientName => (
   Joi.validate(clientName, nameSchema)
-)
-
-export const deleteClientValidate = clientId => (
-  Joi.validate(clientId, idSchema)
-)
-
-export const updateClientValidate = client => (
-  Joi.validate(client, updateClientSchema)
 )

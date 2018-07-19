@@ -14,23 +14,25 @@ const config = {
   logging: s => debug(s)
 }
 
-let services
-
 const run = async () => {
   if (!services) {
     try {
-      const { client, membership, user, payment } = await db(config)
+      const connect = await db(config)
       debug('Database connection')
-      return {
-        client,
-        membership,
-        user,
-        payment
-      }
+      return connect
     } catch (e) {
       debug(e)
     }
   }
 }
 
-export default run
+const services = run()
+
+const get = async () => {
+  return services
+}
+
+export default {
+  run,
+  get
+}

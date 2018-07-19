@@ -6,6 +6,8 @@ import asyncify from 'express-asyncify'
 import main from './routes/main'
 import clientRoutes from './routes/client'
 import userRoutes from './routes/user'
+import membershipRoutes from './routes/membership'
+import paymentRoutes from './routes/payment'
 
 const app = asyncify(express())
 const router = asyncify(express.Router())
@@ -13,13 +15,19 @@ const router = asyncify(express.Router())
 app.use(express.json())
 app.use('/', router)
 
-// Main route
+// Main route.
 main(router)
 
-// Client routes
+// Client routes.
 clientRoutes(router)
 
-// User routes
+// User routes.
 userRoutes(router)
+
+// Membership routes.
+membershipRoutes(router)
+
+// Payment routes.
+paymentRoutes(router)
 
 export default app

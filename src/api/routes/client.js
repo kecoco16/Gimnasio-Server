@@ -1,22 +1,22 @@
 // DataBase.
 import db from '../db'
 
-// Schemas.
+// Schemas validates.
 import {
-  addClientValidate,
-  getClientValidate,
-  searchClientValidate
+  createOrUpdateClientValidate,
+  getClientByIdValidate,
+  getClientByNameValidate
 } from '../validators/client'
 
 // Debug.
 const debug = require('debug')('api:client')
 
 const clientRoutes = async router => {
-  const { client } = await db()
+  const { client } = await db.get()
 
-  router.post('/api/addClient', async (req, res, next) => {
-    debug('A request has come to /api/addClient')
-    const { error } = addClientValidate(req.body)
+  router.post('/api/createOrUpdateClient', async (req, res, next) => {
+    debug('A request has come to /api/createOrUpdateClient')
+    const { error } = createOrUpdateClientValidate(req.body)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
@@ -42,7 +42,7 @@ const clientRoutes = async router => {
 
   router.get('/api/getClient/:id', async (req, res, next) => {
     debug('A request has come to /api/getClient/:id')
-    const { error } = getClientValidate(req.params)
+    const { error } = getClientByIdValidate(req.params)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
@@ -58,7 +58,7 @@ const clientRoutes = async router => {
 
   router.get('/api/searchClient/:name', async (req, res, next) => {
     debug('A request has come to /api/searchClient/:name')
-    const { error } = searchClientValidate(req.params)
+    const { error } = getClientByNameValidate(req.params)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
