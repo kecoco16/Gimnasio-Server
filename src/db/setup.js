@@ -1,4 +1,7 @@
+// DataBase.
 import db from './'
+
+// Dependencies.
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 const debug = require('debug')('db:setup')

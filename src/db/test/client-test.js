@@ -1,6 +1,9 @@
+// Fixtures
+import clientFixtures from './fixtures/client'
+
+// Dependencies.
 import test from 'ava'
 import sinon from 'sinon'
-import clientFixtures from './fixtures/client'
 import { Op } from 'sequelize'
 import moment from 'moment'
 const proxyquire = require('proxyquire').noCallThru()

@@ -1,4 +1,7 @@
+// Dependencies.
 import Sequelize from 'sequelize'
+
+// Setup.
 import setupDataBase from '../lib/db'
 
 const setupMembershipModel = config => {

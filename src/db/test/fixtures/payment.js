@@ -1,3 +1,4 @@
+// Dependencies.
 import moment from 'moment'
 
 const paymentExample = {

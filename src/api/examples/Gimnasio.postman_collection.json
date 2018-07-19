@@ -10,7 +10,7 @@
 			"description": null,
 			"item": [
 				{
-					"name": "Add client",
+					"name": "Create or update client",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -21,10 +21,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idNumber\": \"604280878\",\n\t\"name\": \"Kevin Castillo Mora\",\n\t\"gender\": \"M\",\n\t\"phone\": \"86501179\",\n\t\"email\": \"kecoco16@gmail.com\",\n\t\"profileImageRoute\": \"./Kevin.png\",\n\t\"payDay\": \"07-25-2018\",\n    \"membershipId\": \"1\"\n}"
+							"raw": "{\n  \"idNumber\": \"604280878\",\n  \"name\": \"Kevin Castillo Mora\",\n  \"gender\": \"M\",\n  \"phone\": \"86501179\",\n  \"email\": \"kecoco16@gmail.com\",\n  \"profileImageRoute\": \"./Kevin.png\",\n  \"payDay\": \"07-25-2018\",\n    \"membershipId\": \"1\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/addClient",
+							"raw": "http://localhost:3000/api/createOrUpdateClient",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -32,7 +32,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"addClient"
+								"createOrUpdateClient"
 							]
 						},
 						"description": "Add client "
@@ -105,58 +105,6 @@
 					"response": []
 				},
 				{
-					"name": "Update Client",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Kevin Castillo Mora\",\n\t\"phone\": \"86501179\",\n    \"membershipId\": \"1\",\n\t\"email\": \"kecoco16@gmail.com\",\n    \"profileImageRoute\": \"./Kevin.png\"\n}\n"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/updateClient/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"updateClient",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Client",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://localhost:3000/api/deleteClient/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"deleteClient",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get late to pay clients info ",
 					"request": {
 						"method": "GET",
@@ -205,7 +153,7 @@
 			"description": null,
 			"item": [
 				{
-					"name": "Add User ",
+					"name": "Create or update user",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -219,7 +167,7 @@
 							"raw": "{\n\t\"name\": \"kevin\",\n\t\"password\": \"Password1\",\n\t\"type\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/addUser",
+							"raw": "http://localhost:3000/api/createOrUpdateUser",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,11 +175,255 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"addUser"
+								"createOrUpdateUser"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getUser/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getUser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Membership",
+			"description": "",
+			"item": [
+				{
+					"name": "Create or update membership.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Test\",\n\t\"amount\": 20000\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/createOrUpdateMembership",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"createOrUpdateMembership"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get memberships",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getMemberships",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getMemberships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get membership by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getMembership/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getMembership",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4c968a88-78e6-48bc-8ce0-c301be860b3c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e0b0092-e6cb-44d7-ae91-4a7bd5a970bf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"description": "",
+			"item": [
+				{
+					"name": "Create payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n\t\"amount\": 10000,\n\t\"payDay\": \"2018-07-14T06:00:00.000Z\",\n\t\"date\": \"2018-07-14T06:00:00.000Z\",\n\t\"clientId\": \"1\",\n\t\"userId\": \"1\"\n  }\n  "
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/createPayment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"createPayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getPayments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPayments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get today payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getTodayPayments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getTodayPayments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get payments by dates ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:3000/api/getPaymentsByDates/2018-07-14T06:00:00.000Z/2018-07-14T06:00:00.000Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPaymentsByDates",
+								"2018-07-14T06:00:00.000Z",
+								"2018-07-14T06:00:00.000Z"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "debe5dff-e274-4b6b-b358-4e341724cce8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "925b2192-392f-4939-9afc-da6015940fcf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
