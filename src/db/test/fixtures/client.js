@@ -9,7 +9,7 @@ const client = {
   phone: 86501179,
   email: 'kecoco16@gmail.com',
   profileImageRoute: '../profile/kevin.png',
-  payDay: moment().add(1, 'month').calendar(),
+  payDay: moment().add(1, 'month'),
   createdAt: new Date(),
   updatedAt: new Date(),
   membershipId: 1
@@ -22,10 +22,10 @@ const memberships = [
 
 const clientsList = [
   client,
-  { ...client, id: 2, name: 'Minor Castillo', payDay: moment().format('L'), membershipId: 2 },
-  { ...client, id: 3, name: 'Martha Mora', gender: 'F', payDay: moment().format('L') },
-  { ...client, id: 4, name: 'Michael Castillo', payDay: moment().subtract(1, 'month').calendar(), membershipId: 2 },
-  { ...client, id: 5, name: 'Josseline Castillo', gender: 'F', payDay: moment().subtract(1, 'month').calendar() },
+  { ...client, id: 2, name: 'Minor Castillo', payDay: moment(), membershipId: 2 },
+  { ...client, id: 3, name: 'Martha Mora', gender: 'F', payDay: moment() },
+  { ...client, id: 4, name: 'Michael Castillo', payDay: moment().subtract(1, 'month'), membershipId: 2 },
+  { ...client, id: 5, name: 'Josseline Castillo', gender: 'F', payDay: moment().subtract(1, 'month') },
   { ...client, id: 6, name: 'Conan Castillo', gender: 'M', membershipId: 2 }
 ]
 

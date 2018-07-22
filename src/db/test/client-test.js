@@ -23,7 +23,7 @@ const idNumber = 604280878
 const name = 'Conan'
 const single = { ...clientFixtures.single }
 const newClient = { ...clientFixtures.single, id: 7, name: 'Kratos Castillo', gender: 'M', idNumber: 123456789 }
-const today = moment().format('L')
+const today = moment().format('YYYY-MM-DD')
 
 const newClientIdArgs = {
   where: {
@@ -62,7 +62,7 @@ const nameArgs = {
 
 const payTodayArgs = {
   where: {
-    payDay: moment().format('L')
+    payDay: moment().format('YYYY-MM-DD')
   },
   include: [{
     attributes: ['name', 'amount'],
@@ -74,7 +74,7 @@ const payTodayArgs = {
 const payLateArgs = {
   where: {
     payDay: {
-      [Op.lt]: moment().format('L')
+      [Op.lt]: moment().format('YYYY-MM-DD')
     }
   },
   include: [{

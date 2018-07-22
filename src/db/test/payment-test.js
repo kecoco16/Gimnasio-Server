@@ -15,11 +15,11 @@ let PaymentStub = null
 let UserStub = null
 let db = null
 let sandbox = null
-const from = moment().subtract(1, 'month').calendar()
-const to = moment().add(15, 'days').calendar()
+const from = moment().subtract(1, 'month').format('YYYY-MM-DD')
+const to = moment().add(15, 'days').format('YYYY-MM-DD')
 const newPayment = { ...paymentFixtures.single }
 const clientId = newPayment.clientId
-const newPayDay = moment(newPayment.payDay).add(1, 'month')
+const newPayDay = moment(newPayment.payDay).add(1, 'month').format('YYYY-MM-DD')
 
 const config = {
   logging () {}
@@ -27,7 +27,7 @@ const config = {
 
 const payTodayArgs = {
   where: {
-    date: moment().format('L')
+    date: moment().format('YYYY-MM-DD')
   },
   include: [{
     attributes: ['name'],
