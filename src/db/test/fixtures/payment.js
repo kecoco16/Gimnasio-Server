@@ -4,8 +4,8 @@ import moment from 'moment'
 const paymentExample = {
   id: 1,
   amount: 10000,
-  payDay: moment().format('L'),
-  date: moment().format('L'),
+  payDay: moment(),
+  date: moment(),
   createdAt: new Date(),
   updatedAt: new Date(),
   clientId: 1,
@@ -14,9 +14,9 @@ const paymentExample = {
 
 const paymentsList = [
   paymentExample,
-  { ...paymentExample, id: 2, amount: 15000, payDay: moment().subtract(1, 'month').calendar(), clientId: 2, userId: 2 },
-  { ...paymentExample, id: 3, payDay: moment().subtract(7, 'days').calendar(), userId: 2, date: moment().add(1, 'month').calendar() },
-  { ...paymentExample, id: 4, clientId: 2, date: moment().subtract(10, 'days').calendar() }
+  { ...paymentExample, id: 2, amount: 15000, payDay: moment().subtract(1, 'month'), clientId: 2, userId: 2 },
+  { ...paymentExample, id: 3, payDay: moment().subtract(7, 'days'), userId: 2, date: moment().add(1, 'month') },
+  { ...paymentExample, id: 4, clientId: 2, date: moment().subtract(10, 'days') }
 ]
 
 const clients = [
@@ -40,6 +40,6 @@ const payments = paymentsList.map(p => {
 export default {
   single: paymentExample,
   all: payments,
-  byPayToday: () => payments.filter(p => p.date === moment().format('L')),
+  byPayToday: () => payments.filter(p => p.date === moment()),
   byDate: (from, to) => payments.filter(p => p.date > from && p.date < to)
 }

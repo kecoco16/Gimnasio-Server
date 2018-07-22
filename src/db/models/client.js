@@ -33,7 +33,7 @@ const setupClientModel = config => {
       allowNull: true
     },
     payDay: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false
     }
   })

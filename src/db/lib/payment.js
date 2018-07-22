@@ -33,7 +33,7 @@ const setupPayment = (paymentModel, clientModel, userModel) => {
   const findByPayToday = () => (
     paymentModel.findAll({
       where: {
-        date: moment().format('L')
+        date: moment()
       },
       include: [{
         attributes: ['name'],

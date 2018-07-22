@@ -68,7 +68,7 @@ const setupClient = (clientModel, membershipModel) => {
   const findByPayToday = () => (
     clientModel.findAll({
       where: {
-        payDay: moment().format('L')
+        payDay: moment()
       },
       include: [{
         attributes: ['name', 'amount'],
@@ -82,7 +82,7 @@ const setupClient = (clientModel, membershipModel) => {
     clientModel.findAll({
       where: {
         payDay: {
-          [Op.lt]: moment().format('L')
+          [Op.lt]: moment()
         }
       },
       include: [{

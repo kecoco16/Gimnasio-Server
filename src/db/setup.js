@@ -29,7 +29,8 @@ const setup = async () => {
     dialect: 'postgres',
     logging: s => debug(s),
     setup: true,
-    operatorsAliases: false
+    operatorsAliases: false,
+    timezone: 'America/Costa_Rica'
   }
 
   try {

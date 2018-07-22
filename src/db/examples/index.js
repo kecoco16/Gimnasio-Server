@@ -36,29 +36,29 @@ const run = async () => {
       phone: 88888888,
       email: 'test@mail.com',
       profileImageRoute: '../profile/name.png',
-      payDay: moment().add(1, 'months').calendar(),
+      payDay: moment().add(1, 'month'),
       membershipId: 1
     }
 
     const clientsList = [
       clientExample,
-      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().format('L'), membershipId: 2 },
-      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month').calendar() }
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month') }
     ]
 
     const paymentExample = {
       amount: 10000,
-      payDay: moment().format('L'),
-      date: moment().format('L'),
+      payDay: moment(),
+      date: moment(),
       clientId: 1,
       userId: 1
     }
 
     const paymentsList = [
       paymentExample,
-      { ...paymentExample, amount: 15000, payDay: moment().subtract(1, 'month').calendar(), clientId: 2, userId: 2 },
-      { ...paymentExample, payDay: moment().subtract(7, 'days').calendar(), userId: 2, date: moment().add(1, 'month').calendar() },
-      { ...paymentExample, clientId: 2, date: moment().subtract(10, 'days').calendar() }
+      { ...paymentExample, amount: 15000, payDay: moment().subtract(1, 'month'), userId: 2 },
+      { ...paymentExample, payDay: moment().subtract(7, 'days'), userId: 2, date: moment().add(1, 'month') },
+      { ...paymentExample, date: moment().subtract(10, 'days') }
     ]
 
     // < ============================================= User Examples ============================================= >
@@ -118,15 +118,11 @@ const run = async () => {
     debug('< ====================== getClientsByName ====================== >')
     debug(getClientsByName)
 
-    // TODO:
-    // Fix warning value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date().
-    const today = moment().format('L')
-
-    const getClientsByPayToday = await client.findByPayToday(today)
+    const getClientsByPayToday = await client.findByPayToday()
     debug('< ====================== getClientsByPayToday ====================== >')
     debug(getClientsByPayToday)
 
-    const getClientsByPayLate = await client.findByPayLate(today)
+    const getClientsByPayLate = await client.findByPayLate()
     debug('< ====================== getClientsByPayLate ====================== >')
     debug(getClientsByPayLate)
 
@@ -147,8 +143,8 @@ const run = async () => {
     debug('< ====================== getPaymentsToday ====================== >')
     debug(getPaymentsToday)
 
-    const from = moment().subtract(1, 'month').calendar()
-    const to = moment().add(1, 'day').calendar()
+    const from = moment().subtract(1, 'month').format('YYYY-MM-DD')
+    const to = moment().add(1, 'day').format('YYYY-MM-DD')
     const getPaymentsFilter = await payment.findByDate(from, to)
     debug('< ====================== getPaymentsFilter ====================== >')
     debug(getPaymentsFilter)
