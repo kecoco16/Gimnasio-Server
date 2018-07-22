@@ -15,6 +15,7 @@ const users = [
 export default {
   single: user,
   all: users,
-  ByName: name => users.filter(m => m.name === name).shift(),
-  byId: id => users.filter(m => m.id === id).shift()
+  login: user => users.filter(u => u.name === user.name && u.password === user.password).shift(),
+  ByName: name => users.filter(u => u.name === name).shift(),
+  byId: id => users.filter(u => u.id === id).shift()
 }
