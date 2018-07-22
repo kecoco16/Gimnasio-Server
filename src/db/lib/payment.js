@@ -11,7 +11,7 @@ const setupPayment = (paymentModel, clientModel, userModel) => {
     }
 
     const client = await clientModel.findOne(cond)
-    const payDay = moment(client.payDay).add(1, 'month').format('YYYY-MM-DD')
+    const payDay = moment(client.payDay).add(1, 'month')
     await clientModel.update({ payDay }, cond)
 
     const result = await paymentModel.create(payment)
@@ -33,7 +33,7 @@ const setupPayment = (paymentModel, clientModel, userModel) => {
   const findByPayToday = () => (
     paymentModel.findAll({
       where: {
-        date: moment().format('YYYY-MM-DD')
+        date: moment()
       },
       include: [{
         attributes: ['name'],
