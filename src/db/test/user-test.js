@@ -17,7 +17,6 @@ const newUser = { ...userFixtures.single, id: 3, name: 'Test' }
 const name = 'Admin'
 const single = { ...userFixtures.single }
 const loginUser = { name: 'Admin', password: 'Admin1' }
-// const unsuccessfulLoginUser = { name: 'Admin', password: 'Admin2' }
 
 const config = {
   logging () {}
@@ -78,7 +77,6 @@ test.beforeEach(async () => {
   UserStub.findOne = sandbox.stub()
   UserStub.findOne.withArgs(updateNameArgs).returns(Promise.resolve(userFixtures.ByName(name)))
   UserStub.findOne.withArgs(loginArgs).returns(Promise.resolve(userFixtures.login(loginUser)))
-  // UserStub.findOne.withArgs(unsuccessfulLoginArgs).returns(Promise.resolve(userFixtures.login(unsuccessfulLoginUser)))
 
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,
