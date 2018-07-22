@@ -4,6 +4,7 @@ import db from '../db'
 // Schemas validates.
 import {
   createOrUpdateUserValidate,
+  loginValidate,
   getUserByIdValidate
 } from '../validators/user'
 
@@ -26,6 +27,21 @@ const userRoutes = async router => {
       return next(e)
     }
     res.send(User)
+  })
+
+  router.post('/api/login', async (req, res, next) => {
+    debug('A request has come to /api/login')
+    const { error } = loginValidate(req.body)
+    if (error) {
+      return res.status(400).send(error.details[0].message)
+    }
+    let login = []
+    try {
+      login = await user.login(req.body)
+    } catch (e) {
+      return next(e)
+    }
+    res.send(login)
   })
 
   router.get('/api/getUsers', async (req, res, next) => {
