@@ -1,5 +1,6 @@
 // Fixtures.
 import paymentFixtures from './fixtures/payment'
+import clientFixtures from './fixtures/client'
 
 // Dependencies.
 import test from 'ava'
@@ -17,6 +18,8 @@ let sandbox = null
 const from = moment().subtract(1, 'month').calendar()
 const to = moment().add(15, 'days').calendar()
 const newPayment = { ...paymentFixtures.single }
+const clientId = newPayment.clientId
+const newPayDay = moment(newPayment.payDay).add(1, 'month')
 
 const config = {
   logging () {}
@@ -54,6 +57,12 @@ const filterDateArgs = {
   raw: true
 }
 
+const clientPayArgs = {
+  where: {
+    id: clientId
+  }
+}
+
 test.beforeEach(async () => {
   sandbox = sinon.createSandbox()
 
@@ -85,6 +94,14 @@ test.beforeEach(async () => {
   PaymentStub.findAll.withArgs().returns(Promise.resolve(paymentFixtures.all))
   PaymentStub.findAll.withArgs(payTodayArgs).returns(Promise.resolve(paymentFixtures.byPayToday()))
   PaymentStub.findAll.withArgs(filterDateArgs).returns(Promise.resolve(paymentFixtures.byDate(from, to)))
+
+  // Model findOne Stub
+  ClientStub.findOne = sandbox.stub()
+  ClientStub.findOne.withArgs(clientPayArgs).returns(Promise.resolve(clientFixtures.byId(clientId)))
+
+  // Model update Stub
+  ClientStub.update = sandbox.stub()
+  ClientStub.update.withArgs({ payDay: newPayDay }, clientPayArgs).returns(Promise.resolve())
 
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,

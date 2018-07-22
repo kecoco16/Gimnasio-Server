@@ -4,6 +4,16 @@ import moment from 'moment'
 
 const setupPayment = (paymentModel, clientModel, userModel) => {
   const create = async payment => {
+    const cond = {
+      where: {
+        id: payment.clientId
+      }
+    }
+
+    const client = await clientModel.findOne(cond)
+    const payDay = moment(client.payDay).add(1, 'month')
+    await clientModel.update({ payDay }, cond)
+
     const result = await paymentModel.create(payment)
     return result.toJSON()
   }
