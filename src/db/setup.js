@@ -18,7 +18,7 @@ const setup = async () => {
   ])
 
   if (!answer.setup) {
-    return console.log('Nothing happened :)')
+    return console.log(`${chalk.blue('Nothing happened :)')}`)
   }
 
   const config = {
@@ -35,7 +35,7 @@ const setup = async () => {
 
   try {
     await db(config)
-    console.log('Success!')
+    console.log(`${chalk.green('Success!')}`)
     process.exit(0)
   } catch (err) {
     console.error(`${chalk.red('[FATAL ERROR]')} ${chalk.blue(err.message)}`)
