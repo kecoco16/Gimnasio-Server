@@ -35,13 +35,13 @@ const userRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let login = []
+
     try {
-      login = await user.login(req.body)
+      const login = await user.login(req.body)
+      res.send(login)
     } catch (e) {
       return next(e)
     }
-    res.send(login)
   })
 
   router.get('/api/getUsers', async (req, res, next) => {
