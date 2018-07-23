@@ -68,6 +68,10 @@ const run = async () => {
       debug(createOrUpdateUser)
     }
 
+    const login = await user.login({ name: 'Admin', password: 'Admin1' })
+    debug('< ====================== login ====================== >')
+    debug(login)
+
     const getUsers = await user.findAll()
     debug('< ====================== getUsers ====================== >')
     debug(getUsers)

@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idNumber\": \"604280878\",\n  \"name\": \"Kevin Castillo Mora\",\n  \"gender\": \"M\",\n  \"phone\": \"86501179\",\n  \"email\": \"kecoco16@gmail.com\",\n  \"profileImageRoute\": \"./Kevin.png\",\n  \"payDay\": \"07-25-2018\",\n    \"membershipId\": \"1\"\n}"
+							"raw": "{\n  \"idNumber\": \"604280878\",\n  \"name\": \"Kevin Castillo Mora\",\n  \"gender\": \"M\",\n  \"phone\": \"86501179\",\n  \"email\": \"kecoco16@gmail.com\",\n  \"profileImageRoute\": \"./Kevin.png\",\n  \"payDay\": \"2018-07-25\",\n  \"membershipId\": \"1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/createOrUpdateClient",
@@ -182,6 +182,35 @@
 					"response": []
 				},
 				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"kevin\",\n\t\"password\": \"Password1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get user by id",
 					"request": {
 						"method": "GET",
@@ -321,7 +350,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\n\t\"amount\": 10000,\n\t\"payDay\": \"2018-07-14T06:00:00.000Z\",\n\t\"date\": \"2018-07-14T06:00:00.000Z\",\n\t\"clientId\": \"1\",\n\t\"userId\": \"1\"\n  }\n  "
+							"raw": "  {\n\t\"amount\": 10000,\n\t\"payDay\": \"2018-07-22\",\n\t\"date\": \"2018-07-22\",\n\t\"clientId\": \"1\",\n\t\"userId\": \"1\"\n  }"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/createPayment",
@@ -387,7 +416,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:3000/api/getPaymentsByDates/2018-07-14T06:00:00.000Z/2018-07-14T06:00:00.000Z",
+							"raw": "http://localhost:3000/api/getPaymentsByDates/2018-07-12/2018-07-22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -396,8 +425,8 @@
 							"path": [
 								"api",
 								"getPaymentsByDates",
-								"2018-07-14T06:00:00.000Z",
-								"2018-07-14T06:00:00.000Z"
+								"2018-07-12",
+								"2018-07-22"
 							]
 						}
 					},
