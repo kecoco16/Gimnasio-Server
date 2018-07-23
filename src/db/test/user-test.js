@@ -1,5 +1,5 @@
 // Fixtures.
-import userFixtures from './fixtures/user'
+import userFixtures from '../../commond/fixtures/user'
 
 // Dependencies.
 import test from 'ava'

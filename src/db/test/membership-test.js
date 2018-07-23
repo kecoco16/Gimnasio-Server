@@ -1,5 +1,5 @@
 // Fixtures.
-import membershipFixtures from './fixtures/membership'
+import membershipFixtures from '../../commond/fixtures/membership'
 
 // Dependencies.
 import test from 'ava'

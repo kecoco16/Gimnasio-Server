@@ -1,6 +1,6 @@
 // Fixtures.
-import paymentFixtures from './fixtures/payment'
-import clientFixtures from './fixtures/client'
+import paymentFixtures from '../../commond/fixtures/payment'
+import clientFixtures from '../../commond/fixtures/client'
 
 // Dependencies.
 import test from 'ava'

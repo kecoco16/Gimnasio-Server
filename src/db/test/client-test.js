@@ -1,5 +1,5 @@
 // Fixtures
-import clientFixtures from './fixtures/client'
+import clientFixtures from '../../commond/fixtures/client'
 
 // Dependencies.
 import test from 'ava'
