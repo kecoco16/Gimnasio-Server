@@ -19,35 +19,33 @@ const paymentRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let Payment = []
+
     try {
-      Payment = await payment.create(req.body)
+      const Payment = await payment.create(req.body)
+      res.send(Payment)
     } catch (e) {
       return next(e)
     }
-    res.send(Payment)
   })
 
   router.get('/api/getPayments', async (req, res, next) => {
     debug('A request has come to /api/getPayments')
-    let Payments = []
     try {
-      Payments = await payment.findAll()
+      const Payments = await payment.findAll()
+      res.send(Payments)
     } catch (err) {
       return next(err)
     }
-    res.send(Payments)
   })
 
   router.get('/api/getTodayPayments', async (req, res, next) => {
     debug('A request has come to /api/getTodayPayments')
-    let Payments = []
     try {
-      Payments = await payment.findByPayToday()
+      const Payments = await payment.findByPayToday()
+      res.send(Payments)
     } catch (err) {
       return next(err)
     }
-    res.send(Payments)
   })
 
   router.get('/api/getPaymentsByDates/:from/:to', async (req, res, next) => {
@@ -56,14 +54,14 @@ const paymentRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
+
     const { from, to } = req.params
-    let Payments = []
     try {
-      Payments = await payment.findByDate(from, to)
+      const Payments = await payment.findByDate(from, to)
+      res.send(Payments)
     } catch (err) {
       return next(err)
     }
-    res.send(Payments)
   })
 }
 

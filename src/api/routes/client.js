@@ -20,24 +20,23 @@ const clientRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let Client = []
+
     try {
-      Client = await client.createOrUpdate(req.body)
+      const Client = await client.createOrUpdate(req.body)
+      res.send(Client)
     } catch (err) {
       return next(err)
     }
-    res.send(Client)
   })
 
   router.get('/api/getClients', async (req, res, next) => {
     debug('A request has come to /api/getClients')
-    let Clients = []
     try {
-      Clients = await client.findAll()
+      const Clients = await client.findAll()
+      res.send(Clients)
     } catch (err) {
       return next(err)
     }
-    res.send(Clients)
   })
 
   router.get('/api/getClient/:id', async (req, res, next) => {
@@ -46,14 +45,14 @@ const clientRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
+
     const { id } = req.params
-    let Client = []
     try {
-      Client = await client.findById(id)
+      const Client = await client.findById(id)
+      res.send(Client)
     } catch (e) {
       return next(e)
     }
-    res.send(Client)
   })
 
   router.get('/api/searchClient/:name', async (req, res, next) => {
@@ -62,36 +61,34 @@ const clientRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
+
     const { name } = req.params
-    let Client = []
     try {
-      Client = await client.findByName(name)
+      const Client = await client.findByName(name)
+      res.send(Client)
     } catch (e) {
       return next(e)
     }
-    res.send(Client)
   })
 
   router.get('/api/getLateClients', async (req, res, next) => {
     debug('A request has come to /api/getLateClients')
-    let Clients = []
     try {
-      Clients = await client.findByPayLate()
+      const Clients = await client.findByPayLate()
+      res.send(Clients)
     } catch (err) {
       return next(err)
     }
-    res.send(Clients)
   })
 
   router.get('/api/getTodayClients', async (req, res, next) => {
     debug('A request has come to /api/getTodayClients')
-    let Clients = []
     try {
-      Clients = await client.findByPayToday()
+      const Clients = await client.findByPayToday()
+      res.send(Clients)
     } catch (err) {
       return next(err)
     }
-    res.send(Clients)
   })
 }
 

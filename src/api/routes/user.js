@@ -20,13 +20,13 @@ const userRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let User = []
+
     try {
-      User = await user.createOrUpdate(req.body)
+      const User = await user.createOrUpdate(req.body)
+      res.send(User)
     } catch (e) {
       return next(e)
     }
-    res.send(User)
   })
 
   router.post('/api/login', async (req, res, next) => {
@@ -35,24 +35,23 @@ const userRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let login = []
+
     try {
-      login = await user.login(req.body)
+      const login = await user.login(req.body)
+      res.send(login)
     } catch (e) {
       return next(e)
     }
-    res.send(login)
   })
 
   router.get('/api/getUsers', async (req, res, next) => {
     debug('A request has come to /api/getUsers')
-    let Users = []
     try {
-      Users = await user.findAll()
+      const Users = await user.findAll()
+      res.send(Users)
     } catch (err) {
       return next(err)
     }
-    res.send(Users)
   })
 
   router.get('/api/getUser/:id', async (req, res, next) => {
@@ -61,14 +60,14 @@ const userRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
+
     const { id } = req.params
-    let User = []
     try {
-      User = await user.findById(id)
+      const User = await user.findById(id)
+      res.send(User)
     } catch (e) {
       return next(e)
     }
-    res.send(User)
   })
 }
 

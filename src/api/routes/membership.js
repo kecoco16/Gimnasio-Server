@@ -19,24 +19,23 @@ const membershipRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    let Membership = []
+
     try {
-      Membership = await membership.createOrUpdate(req.body)
+      const Membership = await membership.createOrUpdate(req.body)
+      res.send(Membership)
     } catch (e) {
       return next(e)
     }
-    res.send(Membership)
   })
 
   router.get('/api/getMemberships', async (req, res, next) => {
     debug('A request has come to /api/getMemberships')
-    let Membership = []
     try {
-      Membership = await membership.findAll()
+      const Membership = await membership.findAll()
+      res.send(Membership)
     } catch (err) {
       return next(err)
     }
-    res.send(Membership)
   })
 
   router.get('/api/getMembership/:id', async (req, res, next) => {
@@ -45,14 +44,14 @@ const membershipRoutes = async router => {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
+
     const { id } = req.params
-    let Membership = []
     try {
-      Membership = await membership.findById(id)
+      const Membership = await membership.findById(id)
+      res.send(Membership)
     } catch (e) {
       return next(e)
     }
-    res.send(Membership)
   })
 }
 
