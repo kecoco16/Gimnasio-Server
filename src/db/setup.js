@@ -1,5 +1,6 @@
 // DataBase.
 import db from './'
+import { dbConfig } from '../commond/setup'
 
 // Dependencies.
 import inquirer from 'inquirer'
@@ -21,20 +22,8 @@ const setup = async () => {
     return console.log(`${chalk.blue('Nothing happened :)')}`)
   }
 
-  const config = {
-    database: process.env.DB_NAME || 'gimnasio',
-    username: process.env.DB_USER || 'coco',
-    password: process.env.DB_PASS || 'coco',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'postgres',
-    logging: s => debug(s),
-    setup: true,
-    operatorsAliases: false,
-    timezone: 'America/Costa_Rica'
-  }
-
   try {
-    await db(config)
+    await db(dbConfig(debug, true))
     console.log(`${chalk.green('Success!')}`)
     process.exit(0)
   } catch (err) {

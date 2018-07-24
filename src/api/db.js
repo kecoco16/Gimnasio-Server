@@ -1,23 +1,14 @@
-// Dependencies.
-const debug = require('debug')('api')
-
 // Database.
+import { dbConfig } from '../commond/setup'
 const db = require('../db')
 
-const config = {
-  database: process.env.DB_NAME || 'gimnasio',
-  username: process.env.DB_USER || 'coco',
-  password: process.env.DB_PASS || 'coco',
-  host: process.env.DB_HOST || 'localhost',
-  dialect: 'postgres',
-  operatorsAliases: false,
-  logging: s => debug(s)
-}
+// Dependencies.
+const debug = require('debug')('api')
 
 const run = async () => {
   if (!services) {
     try {
-      const connect = await db(config)
+      const connect = await db(dbConfig(debug))
       debug('Database connection')
       return connect
     } catch (e) {
