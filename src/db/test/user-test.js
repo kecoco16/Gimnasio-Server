@@ -17,6 +17,7 @@ const newUser = { ...userFixtures.single, id: 3, name: 'Test' }
 const name = 'Admin'
 const single = { ...userFixtures.single }
 const loginUser = { name: 'Admin', password: 'Admin1' }
+const failUser = { name: 'Admin', password: 'Admin2' }
 
 const config = {
   logging () {}
@@ -24,6 +25,10 @@ const config = {
 
 const loginArgs = {
   where: loginUser
+}
+
+const failLoginArgs = {
+  where: failUser
 }
 
 const newNameArgs = {
@@ -77,6 +82,7 @@ test.beforeEach(async () => {
   UserStub.findOne = sandbox.stub()
   UserStub.findOne.withArgs(updateNameArgs).returns(Promise.resolve(userFixtures.ByName(name)))
   UserStub.findOne.withArgs(loginArgs).returns(Promise.resolve(userFixtures.login(loginUser)))
+  UserStub.findOne.withArgs(failLoginArgs).returns(Promise.resolve(userFixtures.login(failUser)))
 
   const setupDatabase = proxyquire('../', {
     './models/client': () => ClientStub,
@@ -130,7 +136,7 @@ test.serial('User#createOrUpdate - exist', async t => {
 
 test.serial('User#login - Successful', async t => {
   const login = await db.user.login(loginUser)
-  const success = 'Successful login :)'
+  const success = userFixtures.login(loginUser)
   t.deepEqual(login, success, 'Login should be successful!')
   t.true(UserStub.findOne.called, 'findOne should be called on model')
   t.true(UserStub.findOne.calledOnce, 'findOne should be called once')
@@ -138,10 +144,8 @@ test.serial('User#login - Successful', async t => {
 })
 
 test.serial('User#login - Unsuccessful', async t => {
-  const failUser = { name: 'Admin', password: 'Admin2' }
-  const failLoginArgs = { where: failUser }
   const login = await db.user.login(failUser)
-  const unsuccessful = 'Unsuccessful login :('
+  const unsuccessful = userFixtures.login(failUser)
   t.deepEqual(login, unsuccessful, 'Login should be unsuccessful!')
   t.true(UserStub.findOne.called, 'findOne should be called on model')
   t.true(UserStub.findOne.calledOnce, 'findOne should be called once')

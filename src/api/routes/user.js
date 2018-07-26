@@ -1,6 +1,10 @@
 // DataBase.
 import db from '../db'
 
+// Auth
+import { sign } from '../auth'
+import { jwtSecret } from '../../commond/setup'
+
 // Schemas validates.
 import {
   createOrUpdateUserValidate,
@@ -38,7 +42,12 @@ const userRoutes = async router => {
 
     try {
       const login = await user.login(req.body)
-      res.send(login)
+      if (!login) {
+        return res.status(401).send('Access Denied :(')
+      }
+
+      const token = `Bearer ${sign(login, jwtSecret.secret)}`
+      res.send({ token })
     } catch (e) {
       return next(e)
     }

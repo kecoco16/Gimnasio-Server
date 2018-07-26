@@ -9,3 +9,7 @@ export const dbConfig = (debug, setup) => ({
   operatorsAliases: false,
   timezone: 'America/Costa_Rica'
 })
+
+export const jwtSecret = {
+  secret: process.env.SECRET || 'coco'
+}

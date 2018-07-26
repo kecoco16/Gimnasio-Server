@@ -17,6 +17,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
 							}
 						],
 						"body": {
@@ -43,7 +47,12 @@
 					"name": "Get all clients",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getClients",
@@ -64,7 +73,12 @@
 					"name": "Get client by Id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getClient/1",
@@ -86,7 +100,12 @@
 					"name": "Search client by name",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/searchClient/kevin",
@@ -108,7 +127,12 @@
 					"name": "Get late to pay clients info ",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getLateClients",
@@ -129,7 +153,12 @@
 					"name": "Get today pay clients info",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getTodayClients",
@@ -160,6 +189,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
 							}
 						],
 						"body": {
@@ -214,7 +247,12 @@
 					"name": "Get user by id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getUser/1",
@@ -246,6 +284,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
 							}
 						],
 						"body": {
@@ -271,7 +313,12 @@
 					"name": "Get memberships",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getMemberships",
@@ -292,7 +339,12 @@
 					"name": "Get membership by id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getMembership/1",
@@ -346,6 +398,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
 							}
 						],
 						"body": {
@@ -371,7 +427,12 @@
 					"name": "Get payments",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getPayments",
@@ -392,7 +453,12 @@
 					"name": "Get today payments",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getTodayPayments",
@@ -413,7 +479,12 @@
 					"name": "Get payments by dates ",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvY28ifQ.sKo2fTge350bZCzBWeFiUbGFQuVSxZiQN5cRq7fSjWY"
+							}
+						],
 						"body": {},
 						"url": {
 							"raw": "http://localhost:3000/api/getPaymentsByDates/2018-07-12/2018-07-22",
