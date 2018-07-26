@@ -2,6 +2,10 @@
 import express from 'express'
 import asyncify from 'express-asyncify'
 
+// Auth
+import auth from 'express-jwt'
+import { jwtSecret } from '../commond/setup'
+
 // Routes
 import main from './routes/main'
 import clientRoutes from './routes/client'
@@ -13,6 +17,7 @@ const app = asyncify(express())
 const router = asyncify(express.Router())
 
 app.use(express.json())
+app.use(auth(jwtSecret).unless({ path: '/api/login' }))
 app.use('/', router)
 
 // Main route.

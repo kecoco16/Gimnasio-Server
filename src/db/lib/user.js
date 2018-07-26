@@ -26,12 +26,7 @@ const setupUser = userModel => {
     }
 
     const existingUser = await userModel.findOne(cond)
-
-    if (existingUser) {
-      return 'Successful login :)'
-    }
-
-    return 'Unsuccessful login :('
+    return existingUser
   }
 
   const findAll = () => userModel.findAll()
