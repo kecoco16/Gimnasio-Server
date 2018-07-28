@@ -15,6 +15,17 @@ const client = {
   membershipId: 1
 }
 
+const sendClient = {
+  idNumber: '604280878',
+  name: 'Kevin Castillo Mora',
+  gender: 'M',
+  phone: '86501179',
+  email: 'kecoco16@gmail.com',
+  profileImageRoute: './Kevin.png',
+  payDay: '2018-07-25',
+  membershipId: '1'
+}
+
 const memberships = [
   { id: 1, name: 'Normal', amount: 15000 },
   { id: 2, name: 'Special', amount: 10000 }
@@ -37,6 +48,7 @@ const clients = clientsList.map(c => {
 
 export default {
   single: client,
+  sendClient,
   all: clients,
   byId: id => clients.filter(c => c.id === id).shift(),
   byIdNumberUpdate: idNumber => clientsList.filter(c => c.idNumber === idNumber).shift(),

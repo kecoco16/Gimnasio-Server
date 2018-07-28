@@ -3,7 +3,7 @@ import db from '../db'
 
 // Auth
 import { sign } from '../auth'
-import { jwtSecret } from '../../commond/setup'
+import { jwt } from '../../commond/setup'
 
 // Schemas validates.
 import {
@@ -46,7 +46,7 @@ const userRoutes = async router => {
         return res.status(401).send('Access Denied :(')
       }
 
-      const token = `Bearer ${sign(login, jwtSecret.secret)}`
+      const token = `Bearer ${sign(login, jwt.secret)}`
       res.send({ token })
     } catch (e) {
       return next(e)
