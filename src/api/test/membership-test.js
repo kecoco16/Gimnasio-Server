@@ -57,10 +57,6 @@ test.afterEach(() => {
   sandbox && sandbox.restore()
 })
 
-test.serial('Make it pass', t => {
-  t.pass()
-})
-
 test.serial.cb('/api/createOrUpdateMembership', t => {
   request(server)
     .post('/api/createOrUpdateMembership')
