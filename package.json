@@ -4,7 +4,7 @@
   "description": "RESTful API",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm run lint & nyc ava src/api/test/ --verbose --presets babel-preset-env,stage-2",
+    "test": "npm run lint & nyc ava src/db/test/ --verbose --presets babel-preset-env,stage-2",
     "start": "DEBUG=api* nodemon src/api/index.js --exec babel-node --presets babel-preset-env,stage-2",
     "lint": "standard --fix",
     "api:test": "npm run lint & nyc ava src/api/test/ --verbose --presets babel-preset-env,stage-2",
