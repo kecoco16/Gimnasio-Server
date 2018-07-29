@@ -11,6 +11,9 @@ import { sign } from '../auth'
 import { jwt } from '../../commond/setup'
 
 const proxyquire = require('proxyquire').noCallThru()
+const util = require('util')
+const Sign = util.promisify(sign)
+
 let sandbox = null
 let server = null
 let token = null
@@ -51,7 +54,7 @@ test.beforeEach(async () => {
   dbStub.get = sandbox.stub()
   dbStub.get.withArgs().returns(Promise.resolve({ client: ClientStub }))
 
-  token = await sign({ username: 'test' }, jwt.secret)
+  token = await Sign({ username: 'test' }, jwt.secret)
 
   const client = proxyquire('../routes/client.js', {
     '../db': dbStub
