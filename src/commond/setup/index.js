@@ -10,6 +10,6 @@ export const dbConfig = (debug, setup) => ({
   timezone: 'America/Costa_Rica'
 })
 
-export const jwtSecret = {
+export const jwt = {
   secret: process.env.SECRET || 'coco'
 }
