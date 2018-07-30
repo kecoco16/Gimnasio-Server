@@ -65,4 +65,5 @@ const paymentRoutes = async router => {
   })
 }
 
-export default paymentRoutes
+// The syntax of CommonJS to export modules is required for the integration tests, specifically for use proxyquire.
+module.exports = paymentRoutes
