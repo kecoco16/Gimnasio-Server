@@ -8,9 +8,9 @@ import { jwt } from '../commond/setup'
 
 // Routes
 import main from './routes/main'
-import userRoutes from './routes/user'
-import membershipRoutes from './routes/membership'
-import paymentRoutes from './routes/payment'
+const userRoutes = require('./routes/user')
+const membershipRoutes = require('./routes/membership')
+const paymentRoutes = require('./routes/payment')
 const clientRoutes = require('./routes/client')
 
 const app = asyncify(express())
