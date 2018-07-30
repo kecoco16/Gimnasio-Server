@@ -8,10 +8,10 @@ import { jwt } from '../commond/setup'
 
 // Routes
 import main from './routes/main'
+import clientRoutes from './routes/client'
 import userRoutes from './routes/user'
 import membershipRoutes from './routes/membership'
 import paymentRoutes from './routes/payment'
-const clientRoutes = require('./routes/client')
 
 const app = asyncify(express())
 const router = asyncify(express.Router())
@@ -35,5 +35,4 @@ membershipRoutes(router)
 // Payment routes.
 paymentRoutes(router)
 
-// The syntax of CommonJS to export modules is required for the integration tests, specifically for use proxyquire.
-module.exports = app
+export default app
