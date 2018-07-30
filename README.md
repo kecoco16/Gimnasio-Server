@@ -4,7 +4,7 @@ One Paragraph of project description goes here
 
 ## Database Diagram 
 
-![](diagram.png | width=200)
+![](diagram.png =200x200)
 
 ## Getting Started
 
