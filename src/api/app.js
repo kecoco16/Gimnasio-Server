@@ -17,7 +17,7 @@ const app = asyncify(express())
 const router = asyncify(express.Router())
 
 app.use(express.json())
-app.use(auth(jwt).unless({ path: '/api/login' }))
+app.use(auth(jwt).unless({ path: [ '/', '/api/login' ] }))
 app.use('/', router)
 
 // Main route.
