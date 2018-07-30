@@ -5,18 +5,26 @@ const paymentExample = {
   id: 1,
   amount: 10000,
   payDay: moment(),
-  date: moment(),
+  date: moment().format('YYYY-MM-DD'),
   createdAt: new Date(),
   updatedAt: new Date(),
   clientId: 1,
   userId: 1
 }
 
+const sendPayment = {
+  'amount': 10000,
+  'payDay': '2018-07-22',
+  'date': '2018-07-22',
+  'clientId': '1',
+  'userId': '1'
+}
+
 const paymentsList = [
   paymentExample,
-  { ...paymentExample, id: 2, amount: 15000, payDay: moment().subtract(1, 'month'), clientId: 2, userId: 2 },
-  { ...paymentExample, id: 3, payDay: moment().subtract(7, 'days'), userId: 2, date: moment().add(1, 'month') },
-  { ...paymentExample, id: 4, clientId: 2, date: moment().subtract(10, 'days') }
+  { ...paymentExample, id: 2, amount: 15000, payDay: moment().subtract(1, 'month').format('YYYY-MM-DD'), clientId: 2, userId: 2 },
+  { ...paymentExample, id: 3, payDay: moment().subtract(7, 'days'), userId: 2, date: moment().add(1, 'month').format('YYYY-MM-DD') },
+  { ...paymentExample, id: 4, clientId: 2, date: moment().subtract(10, 'days').format('YYYY-MM-DD') }
 ]
 
 const clients = [
@@ -39,7 +47,8 @@ const payments = paymentsList.map(p => {
 
 export default {
   single: paymentExample,
+  sendPayment,
   all: payments,
-  byPayToday: () => payments.filter(p => p.date === moment()),
+  byPayToday: () => payments.filter(p => p.date === moment().format('YYYY-MM-DD')),
   byDate: (from, to) => payments.filter(p => p.date > from && p.date < to)
 }

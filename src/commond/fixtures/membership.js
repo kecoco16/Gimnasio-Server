@@ -6,6 +6,11 @@ const membership = {
   updatedAt: new Date()
 }
 
+const sendMembership = {
+  name: 'Post',
+  amount: 20000
+}
+
 const memberships = [
   { ...membership },
   { ...membership, id: 2, name: 'Special', amount: 10000 }
@@ -13,6 +18,7 @@ const memberships = [
 
 export default {
   single: membership,
+  sendMembership,
   all: memberships,
   ByName: name => memberships.filter(m => m.name === name).shift(),
   byId: id => memberships.filter(m => m.id === id).shift()

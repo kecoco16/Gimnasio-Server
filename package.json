@@ -4,9 +4,11 @@
   "description": "RESTful API",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm run lint & nyc ava src/db/test/ --verbose --presets babel-preset-env,stage-2",
+    "test": "npm run lint & nyc ava src/api/test/ src/db/test/ --verbose --presets babel-preset-env,stage-2",
     "start": "DEBUG=api* nodemon src/api/index.js --exec babel-node --presets babel-preset-env,stage-2",
     "lint": "standard --fix",
+    "api:test": "npm run lint & nyc ava src/api/test/ --verbose --presets babel-preset-env,stage-2",
+    "db:test": "npm run lint & nyc ava src/db/test/ --verbose --presets babel-preset-env,stage-2",
     "db:setup": "DEBUG=db:* babel-node src/db/setup.js --presets babel-preset-env,stage-2",
     "db:examples": "DEBUG=db:* babel-node src/db/examples/index.js --presets babel-preset-env,stage-2"
   },
@@ -50,7 +52,8 @@
     "proxyquire": "^2.0.1",
     "sinon": "^6.1.0",
     "sqlite3": "^4.0.1",
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "supertest": "^3.1.0"
   },
   "standard": {
     "parser": "babel-eslint"

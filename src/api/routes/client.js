@@ -92,4 +92,5 @@ const clientRoutes = async router => {
   })
 }
 
-export default clientRoutes
+// The syntax of CommonJS to export modules is required for the integration tests, specifically for use proxyquire.
+module.exports = clientRoutes

@@ -45,7 +45,7 @@ const db = async config => {
   await sequelize.authenticate()
 
   if (config.setup) {
-    await sequelize.sync({force: true})
+    await sequelize.sync({ force: true })
   }
 
   const client = setupClient(clientModel, membershipModel)
