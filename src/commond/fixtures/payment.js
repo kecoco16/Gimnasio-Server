@@ -14,8 +14,6 @@ const paymentExample = {
 
 const sendPayment = {
   'amount': 10000,
-  'payDay': '2018-07-22',
-  'date': '2018-07-22',
   'clientId': '1',
   'userId': '1'
 }

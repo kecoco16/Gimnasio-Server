@@ -33,23 +33,21 @@ const run = async () => {
 
     const clientsList = [
       clientExample,
-      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().subtract(2, 'month'), membershipId: 2 },
       { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month') }
     ]
 
     const paymentExample = {
       amount: 10000,
-      payDay: moment(),
-      date: moment(),
       clientId: 1,
       userId: 1
     }
 
     const paymentsList = [
       paymentExample,
-      { ...paymentExample, amount: 15000, payDay: moment().subtract(1, 'month'), userId: 2 },
-      { ...paymentExample, payDay: moment().subtract(7, 'days'), userId: 2, date: moment().add(1, 'month') },
-      { ...paymentExample, date: moment().subtract(10, 'days') }
+      { amount: 15000, clientId: 2, userId: 2 },
+      { ...paymentExample, clientId: 2, userId: 2 },
+      { ...paymentExample }
     ]
 
     // < ============================================= User Examples ============================================= >

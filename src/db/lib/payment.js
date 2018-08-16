@@ -13,8 +13,12 @@ const setupPayment = (paymentModel, clientModel, userModel) => {
     const client = await clientModel.findOne(cond)
     const payDay = moment(client.payDay).add(1, 'month')
     await clientModel.update({ payDay }, cond)
-
-    const result = await paymentModel.create(payment)
+    const params = {
+      ...payment,
+      payDay,
+      date: moment()
+    }
+    const result = await paymentModel.create(params)
     return result.toJSON()
   }
 

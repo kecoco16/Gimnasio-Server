@@ -20,6 +20,11 @@ const to = moment().add(15, 'days')
 const newPayment = { ...paymentFixtures.single }
 const clientId = newPayment.clientId
 const newPayDay = moment(newPayment.payDay).add(1, 'month')
+const params = {
+  ...newPayment,
+  'payDay': moment(),
+  'date': moment()
+}
 
 const config = {
   logging () {}
@@ -85,7 +90,7 @@ test.beforeEach(async () => {
 
   // Model create Stub
   PaymentStub.create = sandbox.stub()
-  PaymentStub.create.withArgs(newPayment).returns(Promise.resolve({
+  PaymentStub.create.withArgs(params).returns(Promise.resolve({
     toJSON () { return newPayment }
   }))
 
@@ -136,7 +141,7 @@ test.serial('Payment#create', async t => {
   t.deepEqual(payment, newPayment, 'client should be the same')
   t.true(PaymentStub.create.called, 'create should be called on model')
   t.true(PaymentStub.create.calledOnce, 'create should be called once')
-  t.true(PaymentStub.create.calledWith(newPayment), 'create should be called with specified args')
+  t.true(PaymentStub.create.calledWith(params), 'create should be called with specified args')
 })
 
 test.serial('Payment#findAll', async t => {

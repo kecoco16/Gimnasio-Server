@@ -4,8 +4,6 @@ import * as Joi from 'joi'
 // Schemas
 const createPaymentSchema = Joi.object().keys({
   amount: Joi.number().required(),
-  payDay: Joi.date().required(),
-  date: Joi.date().required(),
   clientId: Joi.string().required(),
   userId: Joi.string().required()
 })
