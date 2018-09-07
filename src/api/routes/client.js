@@ -29,6 +29,21 @@ const clientRoutes = async router => {
     }
   })
 
+  router.post('/api/deleteClient', async (req, res, next) => {
+    debug('A request has come to /api/deleteClient')
+    const { error } = getClientByIdValidate(req.body)
+    if (error) {
+      return res.status(400).send(error.details[0].message)
+    }
+
+    try {
+      await client.deleteClient(req.body.id)
+      res.send({ message: 'Success!' })
+    } catch (err) {
+      return next(err)
+    }
+  })
+
   router.get('/api/getClients', async (req, res, next) => {
     debug('A request has come to /api/getClients')
     try {

@@ -33,8 +33,20 @@ const run = async () => {
 
     const clientsList = [
       clientExample,
-      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment().subtract(2, 'month'), membershipId: 2 },
-      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month') }
+      { ...clientExample, name: 'Pay today', idNumber: 222222222, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 333333333, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 444444444, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 555555555, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 666666666, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 777777777, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 888888888, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 999999999, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 123456789, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 987654321, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 123454321, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 543212345, payDay: moment().subtract(1, 'month') },
+      { ...clientExample, name: 'Pay today', idNumber: 567898765, payDay: moment(), membershipId: 2 },
+      { ...clientExample, name: 'Late pay', idNumber: 987656789, payDay: moment().subtract(1, 'month') }
     ]
 
     const paymentExample = {

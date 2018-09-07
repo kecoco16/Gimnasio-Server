@@ -93,6 +93,14 @@ const setupClient = (clientModel, membershipModel) => {
     })
   )
 
+  const deleteClient = id => (
+    clientModel.destroy({
+      where: {
+        id
+      }
+    })
+  )
+
   return {
     createOrUpdate,
     findAll,
@@ -100,7 +108,8 @@ const setupClient = (clientModel, membershipModel) => {
     findByIdNumber,
     findByName,
     findByPayToday,
-    findByPayLate
+    findByPayLate,
+    deleteClient
   }
 }
 
