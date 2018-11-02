@@ -21,7 +21,7 @@ Postgres offers a cli tool to create the database we need:
 
 ```sh
 psql postgres
-CREATE ROLE coco WITH LOGIN PASSWORD coco; 
+CREATE ROLE coco WITH LOGIN PASSWORD 'coco'; 
 CREATE DATABASE gimnasio;
 GRANT ALL PRIVILEGES ON DATABASE gimnasio TO coco;
 \quit
