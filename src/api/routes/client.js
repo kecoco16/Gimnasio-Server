@@ -8,21 +8,36 @@ import {
   getClientByNameValidate
 } from '../validators/client'
 
+// Middlewares.
+import multer from 'multer'
+
 // Debug.
 const debug = require('debug')('api:client')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + file.originalname)
+  }
+})
+
+const upload = multer({ storage })
 
 const clientRoutes = async router => {
   const { client } = await db.get()
 
-  router.post('/api/createOrUpdateClient', async (req, res, next) => {
+  router.post('/api/createOrUpdateClient', upload.single('profileImageRoute'), async (req, res, next) => {
     debug('A request has come to /api/createOrUpdateClient')
-    const { error } = createOrUpdateClientValidate(req.body)
+    const body = { ...req.body, profileImageRoute: req.file.path }
+    const { error } = createOrUpdateClientValidate(body)
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
 
     try {
-      const Client = await client.createOrUpdate(req.body)
+      const Client = await client.createOrUpdate(body)
       res.send(Client)
     } catch (err) {
       return next(err)

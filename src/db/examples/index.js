@@ -26,7 +26,7 @@ const run = async () => {
       gender: 'M',
       phone: 88888888,
       email: 'test@mail.com',
-      profileImageRoute: 'profile.png',
+      profileImageRoute: 'uploads/profile.png',
       payDay: moment().add(1, 'month'),
       membershipId: 1
     }

@@ -23,7 +23,8 @@ app.use((req, res, next) => {
 })
 
 app.use(express.json())
-app.use(auth(jwt).unless({ path: [ '/', '/api/login' ] }))
+app.use('/uploads', express.static('uploads'))
+app.use(auth(jwt).unless({ path: [ '/uploads', '/', '/api/login' ] }))
 app.use('/', router)
 
 // Main route.
